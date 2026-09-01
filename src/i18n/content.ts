@@ -1,7 +1,7 @@
 export type Mode = 'dev' | 'content';
 export type Lang = 'es' | 'en';
 
-export const MARTA_VEGAS_YOUTUBE_ID = ''; // TODO: pendiente de recibir el ID del vídeo
+export const MARTA_VEGAS_YOUTUBE_ID = 'AnG9zgIpWhg';
 
 interface HeroCopy {
   eyebrow: string;
@@ -38,13 +38,18 @@ interface AboutCopy {
   data: { label: string; value: string }[];
 }
 
+export type ProjectCategory = 'dev' | 'content';
+
 interface ProjectCopy {
   slug: string;
+  category: ProjectCategory;
   title: string;
   description: string;
   roles: string[];
-  image: string;
+  image?: string;
   hasVideo?: boolean;
+  repoUrl?: string;
+  externalUrl?: string;
 }
 
 interface ProjectsCopy {
@@ -53,6 +58,9 @@ interface ProjectsCopy {
   counter: string;
   viewCue: string;
   closeCue: string;
+  groupDev: string;
+  groupContent: string;
+  repoCue: string;
   items: ProjectCopy[];
 }
 
@@ -163,21 +171,27 @@ export const CONTENT: Record<Lang, LangCopy> = {
     },
     projects: {
       index: '(02) PROYECTOS',
-      heading: 'Cuatro piezas entre producto, diseño y contenido.',
-      counter: '04 / SELECCIÓN',
+      heading: 'Entre producto, diseño y contenido.',
+      counter: '07 / SELECCIÓN',
       viewCue: 'VER',
       closeCue: 'Cerrar',
+      groupDev: 'Developer & Design',
+      groupContent: 'Content & Video',
+      repoCue: 'Repositorio',
       items: [
         {
           slug: 'lugna',
+          category: 'dev',
           title: 'Lugna',
           description:
             'App móvil de salud y bienestar con corrección postural en tiempo real, desarrollada en solitario y validada con usuarios reales mediante tests de usabilidad.',
           roles: ['REACT NATIVE', 'FIGMA', 'MEDIAPIPE'],
           image: '/assets/lugna-mockup-1.jpg',
+          repoUrl: 'https://github.com/estrelladgs/Lugna',
         },
         {
           slug: 'foxbit',
+          category: 'dev',
           title: 'FoxBit',
           description:
             'Plataforma web Ed-Tech desarrollada en equipo bajo Scrum: prototipos y flujos de usuario en Figma, y 13 componentes en Angular/TypeScript integrados con APIs REST.',
@@ -185,16 +199,46 @@ export const CONTENT: Record<Lang, LangCopy> = {
           image: '/assets/foxbit-mockup-1.jpg',
         },
         {
+          slug: 'upho',
+          category: 'dev',
+          title: 'uPho',
+          description:
+            'Red social para compartir fotografías organizadas en álbumes, con áreas privadas que requieren inicio de sesión. Proyecto en equipo desarrollado en PHP.',
+          roles: ['PHP', 'MYSQL', 'HTML/CSS'],
+          repoUrl: 'https://github.com/estrelladgs/uPho',
+        },
+        {
+          slug: 'kleren',
+          category: 'dev',
+          title: 'Kleren',
+          description:
+            'Tienda de ropa online con catálogo, favoritos, cesta y perfil de usuario, más un panel de administración para gestionar los artículos. Proyecto en equipo desarrollado en .NET.',
+          roles: ['.NET', 'C#', 'SQL SERVER'],
+          repoUrl: 'https://github.com/estrelladgs/kleren',
+        },
+        {
+          slug: 'encrypt-files',
+          category: 'dev',
+          title: 'Encrypt Files',
+          description:
+            'Aplicación de escritorio en Java para cifrar, descifrar y compartir archivos entre usuarios registrados. Proyecto en equipo desarrollado con NetBeans.',
+          roles: ['JAVA', 'NETBEANS', 'CRIPTOGRAFÍA'],
+          repoUrl: 'https://github.com/estrelladgs/encrypt_files',
+        },
+        {
           slug: 'marta-vegas',
+          category: 'content',
           title: 'Vídeo · Marta Vegas',
           description:
             'Grabación y edición de un vídeo para la creadora de contenido Marta Vegas, publicado en YouTube.',
           roles: ['CAPCUT', 'ADOBE PREMIERE', 'YOUTUBE'],
           image: '/assets/marta-vegas-frame.jpg',
           hasVideo: true,
+          externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
         },
         {
           slug: 'xarxa-aitana',
+          category: 'content',
           title: 'Asociación Xarxa Aitana',
           description:
             'Gestión integral de la comunicación digital de una ONG educativa como Web and Social Media Manager: desarrollo y mantenimiento del sitio WordPress, y gestión de redes con calendario editorial propio, haciendo crecer la comunidad de menos de 150 a 535 seguidores.',
@@ -302,21 +346,27 @@ export const CONTENT: Record<Lang, LangCopy> = {
     },
     projects: {
       index: '(02) PROJECTS',
-      heading: 'Four pieces between product, design and content.',
-      counter: '04 / SELECTED',
+      heading: 'Between product, design and content.',
+      counter: '07 / SELECTED',
       viewCue: 'VIEW',
       closeCue: 'Close',
+      groupDev: 'Developer & Design',
+      groupContent: 'Content & Video',
+      repoCue: 'Repository',
       items: [
         {
           slug: 'lugna',
+          category: 'dev',
           title: 'Lugna',
           description:
             'Health and wellness mobile app with real-time posture correction, built solo and validated with real users through usability testing.',
           roles: ['REACT NATIVE', 'FIGMA', 'MEDIAPIPE'],
           image: '/assets/lugna-mockup-1.jpg',
+          repoUrl: 'https://github.com/estrelladgs/Lugna',
         },
         {
           slug: 'foxbit',
+          category: 'dev',
           title: 'FoxBit',
           description:
             'Ed-Tech web platform built as a team under Scrum: prototypes and user flows in Figma, and 13 Angular/TypeScript components integrated with REST APIs.',
@@ -324,15 +374,45 @@ export const CONTENT: Record<Lang, LangCopy> = {
           image: '/assets/foxbit-mockup-1.jpg',
         },
         {
+          slug: 'upho',
+          category: 'dev',
+          title: 'uPho',
+          description:
+            'Photo-sharing social network with albums and login-gated private areas. Built in PHP as part of a team project.',
+          roles: ['PHP', 'MYSQL', 'HTML/CSS'],
+          repoUrl: 'https://github.com/estrelladgs/uPho',
+        },
+        {
+          slug: 'kleren',
+          category: 'dev',
+          title: 'Kleren',
+          description:
+            'Online clothing store with catalog, wishlist, cart and user profile, plus an admin panel to manage products. Built in .NET as part of a team project.',
+          roles: ['.NET', 'C#', 'SQL SERVER'],
+          repoUrl: 'https://github.com/estrelladgs/kleren',
+        },
+        {
+          slug: 'encrypt-files',
+          category: 'dev',
+          title: 'Encrypt Files',
+          description:
+            'Java desktop app to encrypt, decrypt and share files between registered users. Built with NetBeans as part of a team project.',
+          roles: ['JAVA', 'NETBEANS', 'CRYPTOGRAPHY'],
+          repoUrl: 'https://github.com/estrelladgs/encrypt_files',
+        },
+        {
           slug: 'marta-vegas',
+          category: 'content',
           title: 'Video · Marta Vegas',
           description: 'Filming and editing of a video for content creator Marta Vegas, published on YouTube.',
           roles: ['CAPCUT', 'ADOBE PREMIERE', 'YOUTUBE'],
           image: '/assets/marta-vegas-frame.jpg',
           hasVideo: true,
+          externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
         },
         {
           slug: 'xarxa-aitana',
+          category: 'content',
           title: 'Xarxa Aitana Association',
           description:
             'End-to-end digital communication for an educational NGO as Web and Social Media Manager: building and maintaining the WordPress site, and running social media with my own editorial calendar, growing the community from under 150 to 535 followers.',

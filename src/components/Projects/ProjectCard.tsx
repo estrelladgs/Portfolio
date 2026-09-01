@@ -6,34 +6,25 @@ interface ProjectItem {
   title: string;
   description: string;
   roles: string[];
-  image: string;
+  image?: string;
   hasVideo?: boolean;
 }
 
 interface ProjectCardProps {
   item: ProjectItem;
   index: number;
-  area: string;
   dimmed: boolean;
   onHoverChange: (hovered: boolean) => void;
   onOpen: () => void;
-  registerRef: (el: HTMLElement | null) => void;
-  viewCue: string;
 }
 
-export function ProjectCard({ item, index, area, dimmed, onHoverChange, onOpen, registerRef }: ProjectCardProps) {
+export function ProjectCard({ item, index, dimmed, onHoverChange, onOpen }: ProjectCardProps) {
   const elRef = useRef<HTMLElement | null>(null);
-  const imgWrapRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
   const [inView, setInView] = useState(false);
   const rafId = useRef<number | null>(null);
   const target = useRef({ rx: 0, ry: 0, sx: 0, sy: 0 });
   const current = useRef({ rx: 0, ry: 0, sx: 0, sy: 0 });
-
-  const setRefs = (el: HTMLElement | null) => {
-    elRef.current = el;
-    registerRef(el);
-  };
 
   useEffect(() => {
     const el = elRef.current;
@@ -105,28 +96,32 @@ export function ProjectCard({ item, index, area, dimmed, onHoverChange, onOpen, 
     }
   };
 
-  const isFeatured = area === 'featured';
-
   return (
     <article
-      ref={setRefs}
-      className={`project-card project-card--${area}${dimmed ? ' is-dimmed' : ''}${inView ? ' is-in-view' : ''}${isFeatured ? ' project-card--featured' : ''}`}
-      style={{ transitionDelay: `${index * 90}ms` }}
+      ref={elRef}
+      className={`project-card${dimmed ? ' is-dimmed' : ''}${inView ? ' is-in-view' : ''}`}
+      style={{ transitionDelay: `${index * 70}ms` }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onClick={onOpen}
       data-cursor="view"
     >
-      <div className="project-card__media" ref={imgWrapRef}>
-        <img
-          src={item.image}
-          alt={item.title}
-          loading="lazy"
-          width={1200}
-          height={800}
-          className="project-card__img"
-        />
+      <div className="project-card__media">
+        {item.image ? (
+          <img
+            src={item.image}
+            alt={item.title}
+            loading="lazy"
+            width={1200}
+            height={800}
+            className="project-card__img"
+          />
+        ) : (
+          <div className="project-card__code" aria-hidden="true">
+            <span className="project-card__code-mark">{'</>'}</span>
+          </div>
+        )}
         {item.hasVideo && (
           <span className="project-card__play" aria-hidden="true">
             ▶

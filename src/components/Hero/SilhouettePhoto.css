@@ -77,26 +77,6 @@
   background: linear-gradient(160deg, var(--accent-soft), transparent 55%);
 }
 
-.silhouette__overflow {
-  position: absolute;
-  top: -64px;
-  left: 12%;
-  width: 76%;
-  height: 160px;
-  object-fit: cover;
-  object-position: top center;
-  clip-path: ellipse(46% 62% at 50% 100%);
-  pointer-events: none;
-  filter: grayscale(1) brightness(0.85) contrast(1.05);
-  mix-blend-mode: luminosity;
-}
-
-.hero-about:hover .silhouette__overflow {
-  filter: none;
-  mix-blend-mode: normal;
-  transition: filter 400ms var(--ease-out);
-}
-
 .hero-about:hover .silhouette__fill-accent {
   opacity: 0.08;
 }
@@ -112,17 +92,16 @@
     right: 40px;
     top: calc(100vh - 296px);
   }
-  .silhouette__overflow {
-    height: 130px;
-  }
 }
 
 @media (max-width: 767px) {
   .silhouette {
-    width: 330px;
-    height: 430px;
-    right: -40px;
-    top: calc(100vh - 390px);
+    position: relative;
+    width: 230px;
+    height: 300px;
+    right: auto;
+    top: auto;
+    margin: -70px auto 0;
   }
 }
 

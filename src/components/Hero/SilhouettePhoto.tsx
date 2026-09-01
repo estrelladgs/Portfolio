@@ -26,15 +26,6 @@ export function SilhouettePhoto() {
         />
         <span className="silhouette__gradient fx-accent" aria-hidden="true" />
       </div>
-      <img
-        className="silhouette__overflow"
-        src="/assets/foto-estrella.png"
-        alt=""
-        aria-hidden="true"
-        width={1200}
-        height={1600}
-        loading="lazy"
-      />
     </figure>
   );
 }
