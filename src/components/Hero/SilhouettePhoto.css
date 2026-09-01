@@ -1,0 +1,135 @@
+.silhouette {
+  position: absolute;
+  right: 120px;
+  top: calc(100vh - 360px);
+  width: 420px;
+  height: 560px;
+  margin: 0;
+  z-index: 5;
+  transform: translate3d(calc(var(--par-x, 0) * 20px), calc(var(--par-y, 0) * 14px + var(--scroll-p, 0) * 20px), 0)
+    rotate(calc(var(--par-x, 0) * 3deg)) scale(calc(1 + var(--scroll-p, 0) * 0.04));
+  animation: silhouetteIn 900ms var(--ease-out) both;
+  animation-delay: 300ms;
+}
+
+@keyframes silhouetteIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.silhouette__shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--blob);
+  background: var(--accent);
+  opacity: 0.22;
+  transform: translate(18px, 18px) rotate(-4deg);
+}
+
+.silhouette__mask {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--blob);
+  overflow: hidden;
+  box-shadow: var(--sh-photo);
+}
+
+.silhouette__fill-base {
+  position: absolute;
+  inset: 0;
+  background: #1a1714;
+}
+
+.silhouette__fill-accent {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.silhouette__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.silhouette__img--duotone {
+  mix-blend-mode: luminosity;
+}
+
+.silhouette__img--color {
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.silhouette__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, var(--accent-soft), transparent 55%);
+}
+
+.silhouette__overflow {
+  position: absolute;
+  top: -64px;
+  left: 12%;
+  width: 76%;
+  height: 160px;
+  object-fit: cover;
+  object-position: top center;
+  clip-path: ellipse(46% 62% at 50% 100%);
+  pointer-events: none;
+  filter: grayscale(1) brightness(0.85) contrast(1.05);
+  mix-blend-mode: luminosity;
+}
+
+.hero-about:hover .silhouette__overflow {
+  filter: none;
+  mix-blend-mode: normal;
+  transition: filter 400ms var(--ease-out);
+}
+
+.hero-about:hover .silhouette__fill-accent {
+  opacity: 0.08;
+}
+
+.hero-about:hover .silhouette__img--color {
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .silhouette {
+    width: 340px;
+    height: 460px;
+    right: 40px;
+    top: calc(100vh - 296px);
+  }
+  .silhouette__overflow {
+    height: 130px;
+  }
+}
+
+@media (max-width: 767px) {
+  .silhouette {
+    width: 330px;
+    height: 430px;
+    right: -40px;
+    top: calc(100vh - 390px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .silhouette {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

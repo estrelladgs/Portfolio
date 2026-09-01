@@ -1,0 +1,154 @@
+import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
+
+interface ProjectItem {
+  slug: string;
+  title: string;
+  description: string;
+  roles: string[];
+  image: string;
+  hasVideo?: boolean;
+}
+
+interface ProjectCardProps {
+  item: ProjectItem;
+  index: number;
+  area: string;
+  dimmed: boolean;
+  onHoverChange: (hovered: boolean) => void;
+  onOpen: () => void;
+  registerRef: (el: HTMLElement | null) => void;
+  viewCue: string;
+}
+
+export function ProjectCard({ item, index, area, dimmed, onHoverChange, onOpen, registerRef }: ProjectCardProps) {
+  const elRef = useRef<HTMLElement | null>(null);
+  const imgWrapRef = useRef<HTMLDivElement | null>(null);
+  const reducedMotion = useReducedMotion();
+  const [inView, setInView] = useState(false);
+  const rafId = useRef<number | null>(null);
+  const target = useRef({ rx: 0, ry: 0, sx: 0, sy: 0 });
+  const current = useRef({ rx: 0, ry: 0, sx: 0, sy: 0 });
+
+  const setRefs = (el: HTMLElement | null) => {
+    elRef.current = el;
+    registerRef(el);
+  };
+
+  useEffect(() => {
+    const el = elRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => () => {
+    if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+  }, []);
+
+  const startLoop = () => {
+    if (rafId.current !== null) return;
+    const tick = () => {
+      current.current.rx += (target.current.rx - current.current.rx) * 0.18;
+      current.current.ry += (target.current.ry - current.current.ry) * 0.18;
+      current.current.sx += (target.current.sx - current.current.sx) * 0.18;
+      current.current.sy += (target.current.sy - current.current.sy) * 0.18;
+      const el = elRef.current;
+      if (el) {
+        el.style.setProperty('--tilt-x', `${current.current.rx.toFixed(2)}deg`);
+        el.style.setProperty('--tilt-y', `${current.current.ry.toFixed(2)}deg`);
+        el.style.setProperty('--shadow-x', `${current.current.sx.toFixed(1)}px`);
+        el.style.setProperty('--shadow-y', `${current.current.sy.toFixed(1)}px`);
+      }
+      rafId.current = requestAnimationFrame(tick);
+    };
+    rafId.current = requestAnimationFrame(tick);
+  };
+
+  const stopLoop = () => {
+    if (rafId.current !== null) {
+      cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (reducedMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    target.current.rx = y * -4;
+    target.current.ry = x * 6;
+    target.current.sx = -x * 14;
+    target.current.sy = -y * 10;
+  };
+
+  const handleEnter = () => {
+    onHoverChange(true);
+    if (!reducedMotion) startLoop();
+  };
+
+  const handleLeave = () => {
+    onHoverChange(false);
+    target.current = { rx: 0, ry: 0, sx: 0, sy: 0 };
+    if (!reducedMotion) {
+      window.setTimeout(stopLoop, 520);
+    }
+  };
+
+  const isFeatured = area === 'featured';
+
+  return (
+    <article
+      ref={setRefs}
+      className={`project-card project-card--${area}${dimmed ? ' is-dimmed' : ''}${inView ? ' is-in-view' : ''}${isFeatured ? ' project-card--featured' : ''}`}
+      style={{ transitionDelay: `${index * 90}ms` }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onClick={onOpen}
+      data-cursor="view"
+    >
+      <div className="project-card__media" ref={imgWrapRef}>
+        <img
+          src={item.image}
+          alt={item.title}
+          loading="lazy"
+          width={1200}
+          height={800}
+          className="project-card__img"
+        />
+        {item.hasVideo && (
+          <span className="project-card__play" aria-hidden="true">
+            ▶
+          </span>
+        )}
+      </div>
+      <div className="project-card__body">
+        <div className="project-card__heading-row">
+          <h3 className="project-card__title">{item.title}</h3>
+          <span className="project-card__index mono-label">
+            {String(index + 1).padStart(2, '0')} ↗
+          </span>
+        </div>
+        <p className="project-card__desc">{item.description}</p>
+        <ul className="project-card__roles">
+          {item.roles.map((role) => (
+            <li key={role} className="mono-label">
+              {role}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}

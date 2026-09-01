@@ -1,0 +1,40 @@
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 220ms var(--ease-out), height 220ms var(--ease-out);
+}
+
+.custom-cursor--link {
+  width: 24px;
+  height: 24px;
+}
+
+.custom-cursor--view {
+  width: 44px;
+  height: 44px;
+}
+
+.custom-cursor__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #0b0a0a;
+  mix-blend-mode: normal;
+}
+
+@media (max-width: 767px) {
+  .custom-cursor {
+    display: none;
+  }
+}
