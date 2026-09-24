@@ -7,7 +7,8 @@
 html {
   background: var(--bg);
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* clip (not hidden): hidden turns the element into a scroll container and breaks position: sticky */
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -24,7 +25,7 @@ body {
   font-size: 18px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
