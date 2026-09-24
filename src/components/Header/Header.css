@@ -181,6 +181,8 @@
 .mobile-menu.is-open {
   opacity: 1;
   visibility: visible;
+  /* Become visible (and focusable) immediately on open; the opacity fade still runs. */
+  transition: opacity 300ms var(--ease-out), visibility 0s;
 }
 
 .mobile-menu nav {
