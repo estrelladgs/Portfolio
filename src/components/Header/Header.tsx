@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLang } from '../../context/LangContext';
-import { useMode } from '../../context/ModeContext';
-import { ModeToggle } from './ModeToggle';
-import { ModeSwitchMobile } from './ModeSwitchMobile';
 import { LangToggle } from './LangToggle';
 import './Header.css';
 
-const NAV_ITEMS: { key: 'about' | 'projects' | 'contact'; href: string }[] = [
+const NAV_ITEMS: { key: 'about' | 'services' | 'projects' | 'contact'; href: string }[] = [
   { key: 'about', href: '#sobre-mi' },
+  { key: 'services', href: '#servicios' },
   { key: 'projects', href: '#proyectos' },
   { key: 'contact', href: '#contacto' },
 ];
 
 export function Header() {
   const { copy } = useLang();
-  const { mode } = useMode();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -51,10 +48,8 @@ export function Header() {
           <div className="site-header__right">
             <div className="site-header__desktop-controls">
               <LangToggle />
-              <ModeToggle />
             </div>
             <div className="site-header__mobile-controls">
-              <ModeSwitchMobile />
               <button
                 type="button"
                 className="menu-btn"
@@ -66,9 +61,6 @@ export function Header() {
               </button>
             </div>
           </div>
-        </div>
-        <div className="site-header__mode-label mono-label">
-          {mode === 'dev' ? copy.nav.modeDevShort : copy.nav.modeContentShort}
         </div>
       </header>
 

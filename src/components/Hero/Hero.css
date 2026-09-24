@@ -8,11 +8,6 @@
   inherits: false;
   initial-value: 0px;
 }
-@property --float-c {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
-}
 
 .hero {
   position: relative;
@@ -95,7 +90,7 @@
 .hero__h1 {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 92px;
+  font-size: 76px;
   letter-spacing: -0.045em;
   line-height: 0.9;
   margin-bottom: 28px;
@@ -182,26 +177,12 @@
     rotateY(calc(var(--par-x, 0) * 10deg)) rotateX(calc(var(--par-y, 0) * -8deg)) rotate(var(--base-rotate));
 }
 
-.hero-card--c {
-  right: 392px;
-  top: 430px;
-  width: 220px;
-  --base-rotate: 3.5deg;
-  animation-name: cardIn, floatC;
-  animation-duration: 520ms, 9s;
-  animation-timing-function: var(--ease-out), ease-in-out;
-  animation-iteration-count: 1, infinite;
-  animation-delay: 680ms, 680ms;
-  transform: translate3d(calc(var(--par-x, 0) * -34px), calc(var(--par-y, 0) * -28px + var(--scroll-p, 0) * 140px + var(--float-c)), 0)
-    rotateY(calc(var(--par-x, 0) * 10deg)) rotateX(calc(var(--par-y, 0) * -8deg)) rotate(var(--base-rotate));
-}
-
 .hero-card__title {
   margin-bottom: 12px;
   color: var(--ink-mute);
 }
 
-.hero-card__code {
+.hero-card__script {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -210,7 +191,7 @@
   color: var(--ink-dim);
 }
 
-.hero-card__code-line--accent {
+.hero-card__script-line--accent {
   color: var(--accent);
 }
 
@@ -235,23 +216,6 @@
   padding: 4px 8px;
   border-radius: 4px;
   color: var(--ink);
-}
-
-.hero-card__bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-  height: 60px;
-}
-
-.hero-card__bar {
-  flex: 1;
-  background: var(--line-strong);
-  border-radius: 2px;
-}
-
-.hero-card__bar--accent {
-  background: var(--accent);
 }
 
 @keyframes h1MaskIn {
@@ -294,15 +258,6 @@
     --float-b: -10px;
   }
 }
-@keyframes floatC {
-  0%,
-  100% {
-    --float-c: 0px;
-  }
-  50% {
-    --float-c: -10px;
-  }
-}
 
 @keyframes scrollCue {
   0%,
@@ -329,12 +284,6 @@
   }
 }
 
-@media (max-width: 1279px) {
-  .hero-card--c {
-    display: none;
-  }
-}
-
 @media (max-width: 1023px) {
   .hero__outline {
     display: none;
@@ -343,7 +292,7 @@
     display: none;
   }
   .hero__h1 {
-    font-size: 72px;
+    font-size: 60px;
   }
   .hero {
     align-items: flex-start;
@@ -357,7 +306,7 @@
     padding-top: 120px;
   }
   .hero__h1 {
-    font-size: 52px;
+    font-size: 40px;
   }
   .hero__copy {
     max-width: 420px;

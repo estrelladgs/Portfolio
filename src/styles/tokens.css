@@ -12,14 +12,9 @@
   --ink-mute: #8a847c;
   --ink-faint: #5f5a54;
 
-  /* acentos por modo */
-  --accent-dev: #c9ff2e;
-  --accent-dev-soft: rgba(201, 255, 46, 0.16);
-  --accent-content: #ff4d8d;
-  --accent-content-soft: rgba(255, 77, 141, 0.18);
-
-  --accent: var(--accent-dev);
-  --accent-soft: var(--accent-dev-soft);
+  /* acento */
+  --accent: #ff4d8d;
+  --accent-soft: rgba(255, 77, 141, 0.18);
 
   /* tipografia */
   --font-display: 'Bricolage Grotesque', sans-serif;
@@ -47,19 +42,8 @@
   --pad-x: 56px;
 }
 
-[data-mode='content'] {
-  --accent: var(--accent-content);
-  --accent-soft: var(--accent-content-soft);
-}
-
 @media (max-width: 767px) {
   :root {
     --pad-x: 22px;
   }
-}
-
-.mode-switching .fx-accent {
-  transition: opacity 300ms var(--ease-io), filter 300ms var(--ease-io);
-  opacity: 0.35;
-  filter: saturate(0.4);
 }

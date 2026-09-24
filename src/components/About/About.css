@@ -42,40 +42,16 @@
   transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
 }
 
-.about__heading,
-.about__chips {
+.about__heading {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
 }
 
 .about__heading.is-in-view,
-.about__p.is-in-view,
-.about__chips.is-in-view {
+.about__p.is-in-view {
   opacity: 1;
   transform: translateY(0);
-}
-
-.about__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.about__chip {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  padding: 9px 16px;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--line-strong);
-  color: var(--ink-mute);
-  transition: color 300ms var(--ease-out), border-color 300ms var(--ease-out);
-}
-
-.about__chip.is-active {
-  color: var(--accent);
-  border-color: var(--accent);
 }
 
 .about__col--data {
@@ -130,8 +106,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .about__heading,
-  .about__p,
-  .about__chips {
+  .about__p {
     transition: opacity 200ms linear;
     transform: none;
   }

@@ -1,441 +1,450 @@
-export type Mode = 'dev' | 'content';
 export type Lang = 'es' | 'en';
 
-export const MARTA_VEGAS_YOUTUBE_ID = 'AnG9zgIpWhg';
+/* ---------- proyectos: tipos ---------- */
 
-interface HeroCopy {
-  eyebrow: string;
-  h1Line1: string;
-  h1Line2: string;
-  subtitle: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
-  cardA: { title: string; lines: string[] };
-  cardB: { title: string; slot: string };
-  cardC: { title: string };
-  scroll: string;
-}
+export type Discipline = 'redes-sociales' | 'video' | 'contenido-seo' | 'comunidad' | 'estrategia' | 'diseno';
+export type Platform = 'instagram' | 'tiktok' | 'linkedin' | 'youtube' | 'whatsapp' | 'newsletter' | 'blog';
+export type Format = 'vertical' | 'horizontal' | 'carrusel' | 'texto';
 
-interface NavCopy {
-  about: string;
-  projects: string;
-  contact: string;
-  modeDev: string;
-  modeContent: string;
-  modeDevShort: string;
-  modeContentShort: string;
-  menuOpen: string;
-  menuClose: string;
-}
-
-interface AboutCopy {
-  index: string;
-  heading: string;
-  p1: string;
-  p2: string;
-  skillsDev: string[];
-  skillsContent: string[];
-  data: { label: string; value: string }[];
-}
-
-export type ProjectCategory = 'dev' | 'content';
-
-interface ProjectCopy {
-  slug: string;
-  category: ProjectCategory;
+export interface ProjectHighlight {
   title: string;
-  description: string;
-  roles: string[];
+  text: string;
+  status?: 'en-progreso';
+}
+
+interface ProjectText {
+  title: string;
+  summary: string;
+  highlights: ProjectHighlight[];
+}
+
+export interface Project {
+  slug: string;
+  tags: Discipline[];
+  platforms: Platform[];
+  format: Format[];
+  tools: string[];
   image?: string;
-  hasVideo?: boolean;
-  repoUrl?: string;
+  youtubeId?: string;
   externalUrl?: string;
+  text: Record<Lang, ProjectText>;
 }
 
-interface ProjectsCopy {
-  index: string;
-  heading: string;
-  counter: string;
-  viewCue: string;
-  closeCue: string;
-  groupDev: string;
-  groupContent: string;
-  repoCue: string;
-  items: ProjectCopy[];
+export type LocalizedProject = Omit<Project, 'text'> & ProjectText;
+
+/* ---------- proyectos: datos ----------
+ * Regla de honestidad: nada inventado. Lo que falte se marca con TODO_
+ * (`npm run check:todos` lo lista y falla mientras quede alguno).
+ */
+
+export const PROJECTS: Project[] = [
+  {
+    slug: 'xarxa-aitana',
+    tags: ['redes-sociales', 'comunidad', 'video', 'contenido-seo'],
+    platforms: ['instagram', 'tiktok', 'whatsapp', 'blog', 'newsletter'],
+    // TODO_XARXA_FORMAT: confirmar si además de reels e historias hubo carruseles.
+    format: ['vertical'],
+    tools: ['CapCut', 'Adobe Premiere', 'WordPress'],
+    image: '/assets/xarxa-web.jpg',
+    text: {
+      es: {
+        title: 'Asociación Xarxa Aitana',
+        summary:
+          'Web and Social Media Manager (voluntariado, 2021–2024) de una asociación educativa: comunidad, contenido y vídeo en Instagram, TikTok, WordPress y WhatsApp.',
+        highlights: [
+          { title: 'Comunidad', text: 'La cuenta pasó de menos de 150 a 535 seguidores, con reels de hasta 6.000 visualizaciones.' },
+          { title: 'Calendario editorial', text: 'Planificación y publicación de posts, historias y reels con un calendario editorial propio.' },
+          { title: 'Vídeo', text: 'Grabación y edición para difundir actividades, contenido educativo y cobertura de eventos.' },
+          { title: 'Blog y newsletter', text: 'Gestión del blog y la newsletter aplicando nociones de SEO.' },
+        ],
+      },
+      en: {
+        title: 'Xarxa Aitana Association',
+        summary:
+          'Web and Social Media Manager (volunteer, 2021–2024) for an educational association: community, content and video across Instagram, TikTok, WordPress and WhatsApp.',
+        highlights: [
+          { title: 'Community', text: 'The account grew from under 150 to 535 followers, with reels reaching up to 6,000 views.' },
+          { title: 'Editorial calendar', text: 'Planning and publishing posts, stories and reels with my own editorial calendar.' },
+          { title: 'Video', text: 'Filming and editing to promote activities, educational content and event coverage.' },
+          { title: 'Blog and newsletter', text: 'Running the blog and newsletter with basic SEO practices.' },
+        ],
+      },
+    },
+  },
+  {
+    slug: 'marta-vegas',
+    tags: ['video'],
+    platforms: ['youtube'],
+    format: ['horizontal'],
+    tools: ['CapCut', 'Adobe Premiere'],
+    image: '/assets/marta-vegas-frame.jpg',
+    youtubeId: 'AnG9zgIpWhg',
+    externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
+    text: {
+      es: {
+        title: 'Vídeo · Marta Vegas',
+        summary: 'Grabación y edición de un vídeo para la creadora de contenido Marta Vegas, publicado en YouTube.',
+        highlights: [],
+      },
+      en: {
+        title: 'Video · Marta Vegas',
+        summary: 'Filming and editing of a video for content creator Marta Vegas, published on YouTube.',
+        highlights: [],
+      },
+    },
+  },
+  {
+    slug: 'foxbit',
+    tags: ['contenido-seo', 'diseno'],
+    platforms: ['blog', 'newsletter'],
+    format: ['texto'],
+    tools: ['WordPress', 'Figma'],
+    image: '/assets/foxbit-mockup-1.jpg',
+    text: {
+      es: {
+        title: 'FoxBit',
+        summary:
+          'Plataforma ed-tech creada por un equipo de 5 personas. Me encargué del blog y la newsletter, y diseñé prototipos y flujos de usuario.',
+        highlights: [
+          { title: 'Blog y newsletter', text: 'Gestión del blog y la newsletter en WordPress aplicando criterios SEO.' },
+          { title: 'Prototipos y flujos', text: 'Prototipos y flujos de usuario diseñados en Figma.' },
+          { title: 'Equipo y método', text: 'Trabajo en un equipo multidisciplinar bajo Scrum, a lo largo de 14 sprints organizados en 4 hitos.' },
+        ],
+      },
+      en: {
+        title: 'FoxBit',
+        summary:
+          'Ed-tech platform created by a team of 5. I ran the blog and newsletter, and designed prototypes and user flows.',
+        highlights: [
+          { title: 'Blog and newsletter', text: 'Managed the blog and newsletter in WordPress with SEO criteria.' },
+          { title: 'Prototypes and flows', text: 'Prototypes and user flows designed in Figma.' },
+          { title: 'Team and method', text: 'Worked in a multidisciplinary team under Scrum, across 14 sprints organised into 4 milestones.' },
+        ],
+      },
+    },
+  },
+  {
+    slug: 'lugna',
+    tags: ['diseno', 'estrategia'],
+    // TODO_LUGNA_PLATFORMS: canales del lanzamiento (instagram, tiktok, linkedin...).
+    platforms: [],
+    // TODO_LUGNA_FORMAT: formatos de las piezas de lanzamiento.
+    format: [],
+    tools: ['Figma'],
+    image: '/assets/lugna-mockup-1.jpg',
+    text: {
+      es: {
+        title: 'Lugna',
+        summary:
+          'App de salud y bienestar, mi Trabajo de Fin de Grado. Un caso de comunicación y lanzamiento de producto: escuchar a los usuarios, diseñar la experiencia y preparar cómo contarla.',
+        highlights: [
+          { title: 'Investigación de usuarios', text: 'Tests de usabilidad cronometrados y entrevistas con usuarios reales.' },
+          { title: 'Interfaz y flujos', text: 'Diseño de la interfaz y de los flujos de usuario en Figma.' },
+          {
+            title: 'Estrategia de contenido y lanzamiento',
+            // TODO_LUGNA_LANZAMIENTO: describir canales, calendario y piezas; añadir resultados cuando haya datos.
+            text: 'En curso. Los resultados se publicarán cuando haya datos.',
+            status: 'en-progreso',
+          },
+        ],
+      },
+      en: {
+        title: 'Lugna',
+        summary:
+          'Health and wellness app, my final degree project. A product communication and launch case: listening to users, designing the experience and planning how to tell its story.',
+        highlights: [
+          { title: 'User research', text: 'Timed usability tests and interviews with real users.' },
+          { title: 'Interface and flows', text: 'Interface and user flows designed in Figma.' },
+          {
+            title: 'Content and launch strategy',
+            text: 'In progress. Results will be published once there is data.',
+            status: 'en-progreso',
+          },
+        ],
+      },
+    },
+  },
+];
+
+export function getProjects(lang: Lang): LocalizedProject[] {
+  return PROJECTS.map(({ text, ...rest }) => ({ ...rest, ...text[lang] }));
 }
 
-interface ContactCopy {
-  index: string;
-  headingSolid: string;
-  headingOutline: string;
-  emailCta: string;
-  copied: string;
-  links: { label: string; href: string }[];
-  cvHeading: string;
-  cvDev: string;
-  cvContent: string;
-  footerLeft: string;
-  footerRight: string;
-}
+export const PLATFORM_LABELS: Record<Platform, string> = {
+  instagram: 'Instagram',
+  tiktok: 'TikTok',
+  linkedin: 'LinkedIn',
+  youtube: 'YouTube',
+  whatsapp: 'WhatsApp',
+  newsletter: 'Newsletter',
+  blog: 'Blog',
+};
+
+export const TOOLS = ['CapCut', 'Premiere', 'Canva', 'Figma', 'Meta Business Suite', 'WordPress', 'Notion'];
+
+export const CV_HREF = '/assets/CV_Estrella_Dominguez_Sanchez_Content_Manager.pdf';
+// TODO_CV_EN: añadir el CV en inglés y enlazarlo desde contact.cvHref en `en`.
+
+/* ---------- copy de interfaz ---------- */
 
 interface LangCopy {
-  nav: NavCopy;
-  hero: Record<Mode, HeroCopy>;
+  nav: {
+    about: string;
+    services: string;
+    projects: string;
+    contact: string;
+    menuOpen: string;
+    menuClose: string;
+  };
   outlineName: string;
-  about: AboutCopy;
-  projects: ProjectsCopy;
-  contact: ContactCopy;
+  hero: {
+    eyebrow: string;
+    h1Line1: string;
+    h1Line2: string;
+    subtitle: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    cardA: { title: string; lines: string[] };
+    cardB: { title: string; slot: string };
+    scroll: string;
+  };
+  about: {
+    index: string;
+    heading: string;
+    p1: string;
+    p2: string;
+    data: { label: string; value: string }[];
+  };
+  services: {
+    index: string;
+    heading: string;
+    items: { title: string; text: string }[];
+    toolsLabel: string;
+  };
+  projects: {
+    index: string;
+    heading: string;
+    counterSuffix: string;
+    viewCue: string;
+    closeCue: string;
+    linkCue: string;
+    platformsLabel: string;
+    formatLabel: string;
+    toolsLabel: string;
+    inProgress: string;
+    disciplines: Record<Discipline, string>;
+    formats: Record<Format, string>;
+  };
+  contact: {
+    index: string;
+    headingSolid: string;
+    headingOutline: string;
+    emailCta: string;
+    copied: string;
+    linkedin: { label: string; href: string };
+    cvHeading: string;
+    cvButton: string;
+    cvHref: string;
+    footerLeft: string;
+    footerRight: string;
+  };
 }
 
 export const CONTENT: Record<Lang, LangCopy> = {
   es: {
     nav: {
       about: 'SOBRE MÍ',
+      services: 'SERVICIOS',
       projects: 'PROYECTOS',
       contact: 'CONTACTO',
-      modeDev: 'Developer & Design',
-      modeContent: 'Content & Video',
-      modeDevShort: 'DEVELOPER & DESIGN',
-      modeContentShort: 'CONTENT & VIDEO',
       menuOpen: 'Abrir menú',
       menuClose: 'Cerrar menú',
     },
     outlineName: 'ESTRELLA / DOMÍNGUEZ',
     hero: {
-      dev: {
-        eyebrow: 'INGENIERA MULTIMEDIA',
-        h1Line1: 'Construyo interfaces',
-        h1Line2: 'que se sienten bien',
-        subtitle:
-          'Frontend Developer & UX/UI Designer. Diseño flujos de usuario en Figma y los convierto en interfaces reales con React y React Native.',
-        ctaPrimary: 'Ver proyectos',
-        ctaSecondary: 'Hablemos',
-        cardA: {
-          title: 'COMPONENT.TSX',
-          lines: ['const [state, setState]', '  = useState(false);', 'return (', '  <Button accent />'],
-        },
-        cardB: { title: 'FIGMA · PROTOTIPO', slot: 'PANTALLA DE APP' },
-        cardC: { title: 'LIGHTHOUSE 98' },
-        scroll: 'SCROLL',
+      eyebrow: 'CONTENIDO · REDES · VÍDEO',
+      h1Line1: 'Creo contenido que se ve,',
+      h1Line2: 'se entiende y se comparte.',
+      subtitle: 'Redes sociales, vídeo y comunidad, con método y con números.',
+      ctaPrimary: 'Ver proyectos',
+      ctaSecondary: 'Hablemos',
+      cardA: {
+        title: 'GUION / COPY',
+        lines: ['ESCENA 01 · EXT. DÍA', 'Plano general, corte a', 'primer plano en 0:04.', 'CTA: suscríbete'],
       },
-      content: {
-        eyebrow: 'INGENIERA MULTIMEDIA',
-        h1Line1: 'Cuento historias',
-        h1Line2: 'que se quedan',
-        subtitle:
-          'Content Manager & Video Editor. Gestiono comunidades, edito vídeo y escribo el contenido que las conecta.',
-        ctaPrimary: 'Ver proyectos',
-        ctaSecondary: 'Hablemos',
-        cardA: {
-          title: 'GUION / COPY',
-          lines: ['ESCENA 01 · EXT. DÍA', 'Plano general, corte a', 'primer plano en 0:04.', 'CTA: suscríbete'],
-        },
-        cardB: { title: 'TIMELINE · 4K', slot: 'FRAME DE VÍDEO' },
-        cardC: { title: 'ALCANCE / SEMANA' },
-        scroll: 'SCROLL',
-      },
+      cardB: { title: 'TIMELINE · EDICIÓN', slot: 'FRAME DE VÍDEO' },
+      scroll: 'SCROLL',
     },
     about: {
       index: '(01) SOBRE MÍ',
-      heading: 'Entre el código, el diseño y la historia que se cuenta.',
-      p1: 'Ingeniera Multimedia por la Universidad de Alicante, con una temporada de Erasmus+ en Suecia que amplió mi forma de entender el diseño y la tecnología.',
-      p2: 'Me muevo con la misma soltura entre interfaces y contenido: construyo en React y React Native, diseño flujos en Figma validados con usuarios reales, y he gestionado la comunicación digital de una asociación hasta multiplicar por tres su comunidad.',
-      skillsDev: [
-        'React',
-        'Angular',
-        'React Native',
-        'TypeScript',
-        'JavaScript',
-        'HTML5/CSS3',
-        'Next.js',
-        'Figma (prototipado, design systems, user flows)',
-        'Tests de usabilidad',
-        'APIs REST',
-      ],
-      skillsContent: [
-        'Instagram',
-        'TikTok',
-        'WordPress',
-        'Calendario editorial',
-        'Redacción',
-        'SEO básico',
-        'Edición de vídeo (CapCut, Adobe Premiere)',
-        'Gestión de comunidad',
-      ],
+      heading: 'Del timeline a la comunidad.',
+      p1: 'Estudié ingeniería, pero cada vez que abría el ordenador acababa editando un vídeo. Me gradué en Ingeniería Multimedia en la Universidad de Alicante, pasé un semestre de Erasmus+ en Suecia y la edición la aprendí por mi cuenta.',
+      p2: 'De 2021 a 2024 llevé como voluntaria las redes y la web de la Asociación Xarxa Aitana: calendario editorial, posts, historias y reels, y una cuenta que pasó de menos de 150 a 535 seguidores. También he grabado y editado vídeo para la creadora Marta Vegas y coorganizado eventos y talleres.',
       data: [
         { label: 'UBICACIÓN', value: 'Málaga, España' },
-        { label: 'FORMACIÓN', value: 'Ingeniería Multimedia, Universidad de Alicante (2022-2026)' },
+        { label: 'FORMACIÓN', value: 'Ingeniería Multimedia, Universidad de Alicante (2022–2026)' },
         { label: 'INTERCAMBIO', value: 'Erasmus+, Högskolan i Skövde, Suecia (2025)' },
         { label: 'IDIOMAS', value: 'Español (nativo) · Inglés B2 · Francés A2 · Sueco A1' },
       ],
     },
-    projects: {
-      index: '(02) PROYECTOS',
-      heading: 'Entre producto, diseño y contenido.',
-      counter: '07 / SELECCIÓN',
-      viewCue: 'VER',
-      closeCue: 'Cerrar',
-      groupDev: 'Developer & Design',
-      groupContent: 'Content & Video',
-      repoCue: 'Repositorio',
+    services: {
+      index: '(02) SERVICIOS',
+      heading: 'Qué hago.',
       items: [
         {
-          slug: 'lugna',
-          category: 'dev',
-          title: 'Lugna',
-          description:
-            'App móvil de salud y bienestar con corrección postural en tiempo real, desarrollada en solitario y validada con usuarios reales mediante tests de usabilidad.',
-          roles: ['REACT NATIVE', 'FIGMA', 'MEDIAPIPE'],
-          image: '/assets/lugna-mockup-1.jpg',
-          repoUrl: 'https://github.com/estrelladgs/Lugna',
+          title: 'Redes sociales y comunidad',
+          text: 'Calendario editorial, publicación de posts, historias y reels, y conversación con la comunidad.',
         },
         {
-          slug: 'foxbit',
-          category: 'dev',
-          title: 'FoxBit',
-          description:
-            'Plataforma web Ed-Tech desarrollada en equipo bajo Scrum: prototipos y flujos de usuario en Figma, y 13 componentes en Angular/TypeScript integrados con APIs REST.',
-          roles: ['ANGULAR', 'TYPESCRIPT', 'SCRUM'],
-          image: '/assets/foxbit-mockup-1.jpg',
+          title: 'Vídeo y edición',
+          text: 'Grabación y edición de reels, TikToks, historias y vídeo horizontal para YouTube.',
         },
         {
-          slug: 'upho',
-          category: 'dev',
-          title: 'uPho',
-          description:
-            'Red social para compartir fotografías organizadas en álbumes, con áreas privadas que requieren inicio de sesión. Proyecto en equipo desarrollado en PHP.',
-          roles: ['PHP', 'MYSQL', 'HTML/CSS'],
-          repoUrl: 'https://github.com/estrelladgs/uPho',
+          title: 'Contenido y SEO',
+          text: 'Redacción para blog y newsletter con criterios SEO, y gestión de contenido en WordPress.',
         },
         {
-          slug: 'kleren',
-          category: 'dev',
-          title: 'Kleren',
-          description:
-            'Tienda de ropa online con catálogo, favoritos, cesta y perfil de usuario, más un panel de administración para gestionar los artículos. Proyecto en equipo desarrollado en .NET.',
-          roles: ['.NET', 'C#', 'SQL SERVER'],
-          repoUrl: 'https://github.com/estrelladgs/kleren',
+          title: 'Diseño y marca',
+          text: 'Piezas gráficas, prototipos y flujos pensados para que el mensaje se entienda a la primera.',
         },
         {
-          slug: 'encrypt-files',
-          category: 'dev',
-          title: 'Encrypt Files',
-          description:
-            'Aplicación de escritorio en Java para cifrar, descifrar y compartir archivos entre usuarios registrados. Proyecto en equipo desarrollado con NetBeans.',
-          roles: ['JAVA', 'NETBEANS', 'CRIPTOGRAFÍA'],
-          repoUrl: 'https://github.com/estrelladgs/encrypt_files',
-        },
-        {
-          slug: 'marta-vegas',
-          category: 'content',
-          title: 'Vídeo · Marta Vegas',
-          description:
-            'Grabación y edición de un vídeo para la creadora de contenido Marta Vegas, publicado en YouTube.',
-          roles: ['CAPCUT', 'ADOBE PREMIERE', 'YOUTUBE'],
-          image: '/assets/marta-vegas-frame.jpg',
-          hasVideo: true,
-          externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
-        },
-        {
-          slug: 'xarxa-aitana',
-          category: 'content',
-          title: 'Asociación Xarxa Aitana',
-          description:
-            'Gestión integral de la comunicación digital de una ONG educativa como Web and Social Media Manager: desarrollo y mantenimiento del sitio WordPress, y gestión de redes con calendario editorial propio, haciendo crecer la comunidad de menos de 150 a 535 seguidores.',
-          roles: ['WORDPRESS', 'INSTAGRAM', 'SEO'],
-          image: '/assets/xarxa-web.jpg',
+          title: 'Estrategia y análisis',
+          text: 'Planificación por objetivos, investigación con usuarios y lectura de métricas para decidir qué repetir.',
         },
       ],
+      toolsLabel: 'HERRAMIENTAS',
+    },
+    projects: {
+      index: '(03) PROYECTOS',
+      heading: 'Casos de contenido, comunidad y diseño.',
+      counterSuffix: 'SELECCIÓN',
+      viewCue: 'VER',
+      closeCue: 'Cerrar',
+      linkCue: 'Ver publicación',
+      platformsLabel: 'PLATAFORMAS',
+      formatLabel: 'FORMATO',
+      toolsLabel: 'HERRAMIENTAS',
+      inProgress: 'EN PROGRESO',
+      disciplines: {
+        'redes-sociales': 'Redes sociales',
+        video: 'Vídeo',
+        'contenido-seo': 'Contenido y SEO',
+        comunidad: 'Comunidad',
+        estrategia: 'Estrategia',
+        diseno: 'Diseño',
+      },
+      formats: { vertical: 'Vertical', horizontal: 'Horizontal', carrusel: 'Carrusel', texto: 'Texto' },
     },
     contact: {
-      index: '(03) CONTACTO',
+      index: '(04) CONTACTO',
       headingSolid: 'Hablemos',
       headingOutline: 'cuando quieras',
       emailCta: 'estrelladomsan@gmail.com',
       copied: 'COPIADO',
-      links: [
-        { label: 'Linkedin: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
-        { label: 'GitHub: estrelladgs', href: 'https://github.com/estrelladgs' },
-      ],
-      cvHeading: 'Descargar CV',
-      cvDev: 'Descargar CV · Frontend Developer',
-      cvContent: 'Descargar CV · Content Manager',
+      linkedin: { label: 'LinkedIn: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
+      cvHeading: 'Currículum',
+      cvButton: 'Descargar CV',
+      cvHref: CV_HREF,
       footerLeft: '© 2026 ESTRELLA DOMÍNGUEZ SÁNCHEZ',
-      footerRight: 'DISEÑADO Y PROGRAMADO POR MÍ',
+      footerRight: 'DISEÑADO POR MÍ',
     },
   },
   en: {
     nav: {
       about: 'ABOUT',
+      services: 'SERVICES',
       projects: 'PROJECTS',
       contact: 'CONTACT',
-      modeDev: 'Developer & Design',
-      modeContent: 'Content & Video',
-      modeDevShort: 'DEVELOPER & DESIGN',
-      modeContentShort: 'CONTENT & VIDEO',
       menuOpen: 'Open menu',
       menuClose: 'Close menu',
     },
     outlineName: 'ESTRELLA / DOMÍNGUEZ',
     hero: {
-      dev: {
-        eyebrow: 'MULTIMEDIA ENGINEER',
-        h1Line1: 'I build interfaces',
-        h1Line2: 'that feel right',
-        subtitle:
-          'Frontend Developer & UX/UI Designer. I design user flows in Figma and turn them into real interfaces with React and React Native.',
-        ctaPrimary: 'View projects',
-        ctaSecondary: "Let's talk",
-        cardA: {
-          title: 'COMPONENT.TSX',
-          lines: ['const [state, setState]', '  = useState(false);', 'return (', '  <Button accent />'],
-        },
-        cardB: { title: 'FIGMA · PROTOTYPE', slot: 'APP SCREEN' },
-        cardC: { title: 'LIGHTHOUSE 98' },
-        scroll: 'SCROLL',
+      eyebrow: 'CONTENT · SOCIAL · VIDEO',
+      h1Line1: 'I create content that gets seen,',
+      h1Line2: 'understood and shared.',
+      subtitle: 'Social media, video and community, with method and with numbers.',
+      ctaPrimary: 'View projects',
+      ctaSecondary: "Let's talk",
+      cardA: {
+        title: 'SCRIPT / COPY',
+        lines: ['SCENE 01 · EXT. DAY', 'Wide shot, cut to', 'close-up at 0:04.', 'CTA: subscribe'],
       },
-      content: {
-        eyebrow: 'MULTIMEDIA ENGINEER',
-        h1Line1: 'I tell stories',
-        h1Line2: 'that stick',
-        subtitle: 'Content Manager & Video Editor. I manage communities, edit video and write the content that connects them.',
-        ctaPrimary: 'View projects',
-        ctaSecondary: "Let's talk",
-        cardA: {
-          title: 'SCRIPT / COPY',
-          lines: ['SCENE 01 · EXT. DAY', 'Wide shot, cut to', 'close-up at 0:04.', 'CTA: subscribe'],
-        },
-        cardB: { title: 'TIMELINE · 4K', slot: 'VIDEO FRAME' },
-        cardC: { title: 'REACH / WEEK' },
-        scroll: 'SCROLL',
-      },
+      cardB: { title: 'TIMELINE · EDIT', slot: 'VIDEO FRAME' },
+      scroll: 'SCROLL',
     },
     about: {
       index: '(01) ABOUT',
-      heading: 'Between the code, the design and the story being told.',
-      p1: 'Multimedia Engineer from the University of Alicante, with an Erasmus+ term in Sweden that broadened how I understand design and technology.',
-      p2: 'I move just as easily between interfaces and content: I build with React and React Native, design flows in Figma validated with real users, and managed the digital communication of an association, tripling its community.',
-      skillsDev: [
-        'React',
-        'Angular',
-        'React Native',
-        'TypeScript',
-        'JavaScript',
-        'HTML5/CSS3',
-        'Next.js',
-        'Figma (prototyping, design systems, user flows)',
-        'Usability testing',
-        'REST APIs',
-      ],
-      skillsContent: [
-        'Instagram',
-        'TikTok',
-        'WordPress',
-        'Editorial calendar',
-        'Copywriting',
-        'Basic SEO',
-        'Video editing (CapCut, Adobe Premiere)',
-        'Community management',
-      ],
+      heading: 'From the timeline to the community.',
+      p1: 'I studied engineering, but every time I opened my laptop I ended up editing a video. I graduated in Multimedia Engineering from the University of Alicante, spent an Erasmus+ semester in Sweden, and taught myself video editing along the way.',
+      p2: 'From 2021 to 2024 I volunteered running social media and the website for the Xarxa Aitana Association: editorial calendar, posts, stories and reels, and an account that grew from under 150 to 535 followers. I have also filmed and edited video for creator Marta Vegas and co-organised events and workshops.',
       data: [
         { label: 'LOCATION', value: 'Málaga, Spain' },
-        { label: 'EDUCATION', value: 'Multimedia Engineering, University of Alicante (2022-2026)' },
+        { label: 'EDUCATION', value: 'Multimedia Engineering, University of Alicante (2022–2026)' },
         { label: 'EXCHANGE', value: 'Erasmus+, Högskolan i Skövde, Sweden (2025)' },
         { label: 'LANGUAGES', value: 'Spanish (native) · English B2 · French A2 · Swedish A1' },
       ],
     },
-    projects: {
-      index: '(02) PROJECTS',
-      heading: 'Between product, design and content.',
-      counter: '07 / SELECTED',
-      viewCue: 'VIEW',
-      closeCue: 'Close',
-      groupDev: 'Developer & Design',
-      groupContent: 'Content & Video',
-      repoCue: 'Repository',
+    services: {
+      index: '(02) SERVICES',
+      heading: 'What I do.',
       items: [
         {
-          slug: 'lugna',
-          category: 'dev',
-          title: 'Lugna',
-          description:
-            'Health and wellness mobile app with real-time posture correction, built solo and validated with real users through usability testing.',
-          roles: ['REACT NATIVE', 'FIGMA', 'MEDIAPIPE'],
-          image: '/assets/lugna-mockup-1.jpg',
-          repoUrl: 'https://github.com/estrelladgs/Lugna',
+          title: 'Social media and community',
+          text: 'Editorial calendar, publishing posts, stories and reels, and keeping the conversation going with the community.',
         },
         {
-          slug: 'foxbit',
-          category: 'dev',
-          title: 'FoxBit',
-          description:
-            'Ed-Tech web platform built as a team under Scrum: prototypes and user flows in Figma, and 13 Angular/TypeScript components integrated with REST APIs.',
-          roles: ['ANGULAR', 'TYPESCRIPT', 'SCRUM'],
-          image: '/assets/foxbit-mockup-1.jpg',
+          title: 'Video and editing',
+          text: 'Filming and editing reels, TikToks, stories and horizontal video for YouTube.',
         },
         {
-          slug: 'upho',
-          category: 'dev',
-          title: 'uPho',
-          description:
-            'Photo-sharing social network with albums and login-gated private areas. Built in PHP as part of a team project.',
-          roles: ['PHP', 'MYSQL', 'HTML/CSS'],
-          repoUrl: 'https://github.com/estrelladgs/uPho',
+          title: 'Content and SEO',
+          text: 'Writing for blogs and newsletters with SEO criteria, and managing content in WordPress.',
         },
         {
-          slug: 'kleren',
-          category: 'dev',
-          title: 'Kleren',
-          description:
-            'Online clothing store with catalog, wishlist, cart and user profile, plus an admin panel to manage products. Built in .NET as part of a team project.',
-          roles: ['.NET', 'C#', 'SQL SERVER'],
-          repoUrl: 'https://github.com/estrelladgs/kleren',
+          title: 'Design and brand',
+          text: 'Graphics, prototypes and flows designed so the message lands the first time.',
         },
         {
-          slug: 'encrypt-files',
-          category: 'dev',
-          title: 'Encrypt Files',
-          description:
-            'Java desktop app to encrypt, decrypt and share files between registered users. Built with NetBeans as part of a team project.',
-          roles: ['JAVA', 'NETBEANS', 'CRYPTOGRAPHY'],
-          repoUrl: 'https://github.com/estrelladgs/encrypt_files',
-        },
-        {
-          slug: 'marta-vegas',
-          category: 'content',
-          title: 'Video · Marta Vegas',
-          description: 'Filming and editing of a video for content creator Marta Vegas, published on YouTube.',
-          roles: ['CAPCUT', 'ADOBE PREMIERE', 'YOUTUBE'],
-          image: '/assets/marta-vegas-frame.jpg',
-          hasVideo: true,
-          externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
-        },
-        {
-          slug: 'xarxa-aitana',
-          category: 'content',
-          title: 'Xarxa Aitana Association',
-          description:
-            'End-to-end digital communication for an educational NGO as Web and Social Media Manager: building and maintaining the WordPress site, and running social media with my own editorial calendar, growing the community from under 150 to 535 followers.',
-          roles: ['WORDPRESS', 'INSTAGRAM', 'SEO'],
-          image: '/assets/xarxa-web.jpg',
+          title: 'Strategy and analytics',
+          text: 'Goal-based planning, user research and reading metrics to decide what to repeat.',
         },
       ],
+      toolsLabel: 'TOOLS',
+    },
+    projects: {
+      index: '(03) PROJECTS',
+      heading: 'Content, community and design cases.',
+      counterSuffix: 'SELECTED',
+      viewCue: 'VIEW',
+      closeCue: 'Close',
+      linkCue: 'View original',
+      platformsLabel: 'PLATFORMS',
+      formatLabel: 'FORMAT',
+      toolsLabel: 'TOOLS',
+      inProgress: 'IN PROGRESS',
+      disciplines: {
+        'redes-sociales': 'Social media',
+        video: 'Video',
+        'contenido-seo': 'Content and SEO',
+        comunidad: 'Community',
+        estrategia: 'Strategy',
+        diseno: 'Design',
+      },
+      formats: { vertical: 'Vertical', horizontal: 'Horizontal', carrusel: 'Carousel', texto: 'Text' },
     },
     contact: {
-      index: '(03) CONTACT',
+      index: '(04) CONTACT',
       headingSolid: "Let's talk",
       headingOutline: 'whenever you like',
       emailCta: 'estrelladomsan@gmail.com',
       copied: 'COPIED',
-      links: [
-        { label: 'Linkedin: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
-        { label: 'GitHub: estrelladgs', href: 'https://github.com/estrelladgs' },
-      ],
-      cvHeading: 'Download CV',
-      cvDev: 'Download CV · Frontend Developer',
-      cvContent: 'Download CV · Content Manager',
+      linkedin: { label: 'LinkedIn: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
+      cvHeading: 'Résumé',
+      cvButton: 'Download CV (Spanish version)',
+      cvHref: CV_HREF,
       footerLeft: '© 2026 ESTRELLA DOMÍNGUEZ SÁNCHEZ',
-      footerRight: 'DESIGNED AND BUILT BY ME',
+      footerRight: 'DESIGNED BY ME',
     },
   },
 };

@@ -110,11 +110,6 @@
   gap: 14px;
 }
 
-.pill-btn.is-current {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
 .contact__links {
   display: flex;
   flex-direction: column;

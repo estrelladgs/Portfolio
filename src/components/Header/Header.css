@@ -116,95 +116,6 @@
   color: var(--ink-faint);
 }
 
-/* desktop mode toggle */
-.mode-toggle {
-  position: relative;
-  display: flex;
-  background: #121110;
-  border: 1px solid #2a2724;
-  border-radius: var(--r-pill);
-  padding: 4px;
-}
-
-.mode-toggle__thumb {
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: calc(50% - 4px);
-  border-radius: var(--r-pill);
-  background: var(--accent);
-  transition: left 420ms var(--ease-io);
-}
-
-.mode-toggle[data-active='content'] .mode-toggle__thumb {
-  left: calc(50% + 0px);
-}
-
-.mode-toggle__thumb.squash {
-  animation: thumbSquash 420ms var(--ease-io);
-}
-
-@keyframes thumbSquash {
-  0% {
-    transform: scaleX(1);
-  }
-  50% {
-    transform: scaleX(1.06);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-.mode-toggle__tab {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  padding: 9px 18px;
-  color: var(--ink-mute);
-  transition: color 200ms var(--ease-out);
-  white-space: nowrap;
-}
-
-.mode-toggle__tab.is-active {
-  color: #0b0a0a;
-}
-
-/* mobile mode switch */
-.mode-switch-mobile {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mode-switch-mobile__track {
-  position: relative;
-  width: 34px;
-  height: 20px;
-  border-radius: var(--r-pill);
-  background: var(--accent);
-}
-
-.mode-switch-mobile__knob {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--bg);
-  transition: left 300ms var(--ease-io);
-}
-
-.mode-switch-mobile[aria-checked='true'] .mode-switch-mobile__knob {
-  left: 17px;
-}
-
 /* menu button */
 .menu-btn {
   width: 44px;
@@ -251,11 +162,6 @@
 .menu-btn__line.is-open::after {
   top: 0;
   transform: rotate(-45deg);
-}
-
-.site-header__mode-label {
-  display: none;
-  padding: 6px var(--pad-x) 0;
 }
 
 .mobile-menu {
@@ -313,10 +219,6 @@
 
   .site-header__mobile-controls {
     display: flex;
-  }
-
-  .site-header__mode-label {
-    display: block;
   }
 
   .menu-btn {

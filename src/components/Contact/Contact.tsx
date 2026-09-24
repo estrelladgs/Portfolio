@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useLang } from '../../context/LangContext';
-import { useMode } from '../../context/ModeContext';
+import { track } from '../../lib/analytics';
 import './Contact.css';
 
 export function Contact() {
-  const { copy } = useLang();
-  const { mode } = useMode();
+  const { lang, copy } = useLang();
   const { contact } = copy;
   const [copied, setCopied] = useState(false);
 
@@ -14,6 +13,7 @@ export function Contact() {
     try {
       await navigator.clipboard.writeText(contact.emailCta);
       setCopied(true);
+      track('email_copy');
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
       /* clipboard unavailable */
@@ -48,34 +48,32 @@ export function Contact() {
               <span className="mono-label contact__cv-label">{contact.cvHeading}</span>
               <div className="contact__cv-buttons">
                 <a
-                  href="/assets/CV_Estrella_Dominguez_Sanchez_Frontend_Developer.pdf"
-                  className={`pill-btn pill-btn--secondary${mode === 'dev' ? ' is-current' : ''}`}
+                  href={contact.cvHref}
+                  className="pill-btn pill-btn--secondary"
                   download
+                  onClick={() => track('cv_download', { lang })}
                 >
-                  {contact.cvDev}
-                </a>
-                <a
-                  href="/assets/CV_Estrella_Dominguez_Sanchez_Content_Manager.pdf"
-                  className={`pill-btn pill-btn--secondary${mode === 'content' ? ' is-current' : ''}`}
-                  download
-                >
-                  {contact.cvContent}
+                  {contact.cvButton}
                 </a>
               </div>
             </div>
           </div>
 
           <ul className="contact__links">
-            {contact.links.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} target="_blank" rel="noreferrer" className="contact__link-row">
-                  <span>{link.label}</span>
-                  <span className="contact__link-arrow" aria-hidden="true">
-                    ↗
-                  </span>
-                </a>
-              </li>
-            ))}
+            <li>
+              <a
+                href={contact.linkedin.href}
+                target="_blank"
+                rel="noreferrer"
+                className="contact__link-row"
+                onClick={() => track('linkedin_click')}
+              >
+                <span>{contact.linkedin.label}</span>
+                <span className="contact__link-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
 

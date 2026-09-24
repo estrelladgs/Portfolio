@@ -1,24 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-
-interface ProjectItem {
-  slug: string;
-  title: string;
-  description: string;
-  roles: string[];
-  image?: string;
-  hasVideo?: boolean;
-}
+import type { LocalizedProject } from '../../i18n/content';
 
 interface ProjectCardProps {
-  item: ProjectItem;
+  item: LocalizedProject;
   index: number;
+  tagLabels: string[];
   dimmed: boolean;
   onHoverChange: (hovered: boolean) => void;
   onOpen: () => void;
 }
 
-export function ProjectCard({ item, index, dimmed, onHoverChange, onOpen }: ProjectCardProps) {
+export function ProjectCard({ item, index, tagLabels, dimmed, onHoverChange, onOpen }: ProjectCardProps) {
   const elRef = useRef<HTMLElement | null>(null);
   const reducedMotion = useReducedMotion();
   const [inView, setInView] = useState(false);
@@ -118,11 +111,9 @@ export function ProjectCard({ item, index, dimmed, onHoverChange, onOpen }: Proj
             className="project-card__img"
           />
         ) : (
-          <div className="project-card__code" aria-hidden="true">
-            <span className="project-card__code-mark">{'</>'}</span>
-          </div>
+          <div className="project-card__placeholder" aria-hidden="true" />
         )}
-        {item.hasVideo && (
+        {item.youtubeId && (
           <span className="project-card__play" aria-hidden="true">
             ▶
           </span>
@@ -135,11 +126,11 @@ export function ProjectCard({ item, index, dimmed, onHoverChange, onOpen }: Proj
             {String(index + 1).padStart(2, '0')} ↗
           </span>
         </div>
-        <p className="project-card__desc">{item.description}</p>
+        <p className="project-card__desc">{item.summary}</p>
         <ul className="project-card__roles">
-          {item.roles.map((role) => (
-            <li key={role} className="mono-label">
-              {role}
+          {tagLabels.map((label) => (
+            <li key={label} className="mono-label">
+              {label}
             </li>
           ))}
         </ul>

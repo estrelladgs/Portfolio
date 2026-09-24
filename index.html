@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es" data-mode="dev" data-lang="es">
+<html lang="es" data-lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Estrella Domínguez Sánchez · Frontend Developer & Content Manager</title>
-    <meta name="description" content="Portfolio de Estrella Domínguez Sánchez. Frontend Developer & UX/UI Designer / Content Manager & Video Editor." />
+    <title>Estrella Domínguez Sánchez · Contenido, redes sociales y vídeo</title>
+    <meta name="description" content="Portfolio de Estrella Domínguez Sánchez: redes sociales, comunidad, contenido y edición de vídeo, con método y con números." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,11 +21,7 @@
     <script>
       (function () {
         try {
-          var mode = localStorage.getItem('eds:mode');
           var lang = localStorage.getItem('eds:lang');
-          if (mode === 'dev' || mode === 'content') {
-            document.documentElement.setAttribute('data-mode', mode);
-          }
           if (lang === 'es' || lang === 'en') {
             document.documentElement.setAttribute('data-lang', lang);
             document.documentElement.setAttribute('lang', lang);
