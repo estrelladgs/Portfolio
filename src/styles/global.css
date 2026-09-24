@@ -71,12 +71,14 @@ p {
   padding: 0 var(--pad-x);
 }
 
-#hero,
-#sobre-mi,
-#servicios,
-#proyectos,
-#contacto {
-  scroll-margin-top: 88px;
+/* Skip-link target: receives focus programmatically, no ring needed on the whole page. */
+main:focus {
+  outline: none;
+}
+
+/* Keeps anchor jumps and keyboard-focus scrolling clear of the fixed header (WCAG 2.4.11). */
+html {
+  scroll-padding-top: 88px;
 }
 
 .mono-label {

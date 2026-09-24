@@ -21,7 +21,8 @@ export default function App() {
     <LangProvider>
       <SkipLink />
       <Header />
-      <main id="main">
+      {/* tabIndex -1: the skip link moves real focus here, so screen readers announce the jump. */}
+      <main id="main" tabIndex={-1}>
         <HeroAbout />
         <Services />
         <Projects />

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "check:todos": "node scripts/check-todos.mjs",
-    "a11y": "node scripts/a11y-check.mjs"
+    "a11y": "node scripts/a11y-check.mjs",
+    "a11y:keyboard": "node scripts/keyboard-walk.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
