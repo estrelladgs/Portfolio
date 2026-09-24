@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { CONTENT, PLATFORM_LABELS, type LocalizedProject } from '../../i18n/content';
+import { useScrollLock } from '../../hooks/useScrollLock';
 import './ProjectModal.css';
 
 interface ProjectModalProps {
@@ -8,18 +9,39 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
+/**
+ * Native modal <dialog>: showModal() makes the rest of the page inert, moves focus
+ * inside, keeps Tab within the dialog and closes on Escape (firing `close`).
+ */
 export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
+  useScrollLock(true);
+
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose]);
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
+  }, []);
+
+  const close = () => dialogRef.current?.close();
+
+  // Native modals let Tab leave to the browser UI after the last control; keep it cycling inside.
+  const trapTab = (e: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (e.key !== 'Tab') return;
+    const focusables = Array.from(
+      e.currentTarget.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'),
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   const meta = [
     { label: copy.platformsLabel, values: project.platforms.map((p) => PLATFORM_LABELS[p]) },
@@ -28,9 +50,19 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
   ].filter((row) => row.values.length > 0);
 
   return (
-    <div className="project-modal" role="dialog" aria-modal="true" aria-label={project.title} onClick={onClose}>
-      <div className="project-modal__panel" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="project-modal__close" onClick={onClose} aria-label={copy.closeCue}>
+    <dialog
+      ref={dialogRef}
+      className="project-modal"
+      aria-labelledby={titleId}
+      onClose={onClose}
+      onKeyDown={trapTab}
+      onClick={(e) => {
+        // Clicks on the dialog's own box (outside the panel) act as a backdrop click.
+        if (e.target === e.currentTarget) close();
+      }}
+    >
+      <div className="project-modal__panel">
+        <button type="button" className="project-modal__close" onClick={close} aria-label={copy.closeCue}>
           ✕
         </button>
 
@@ -52,7 +84,9 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
         </div>
 
         <div className="project-modal__body">
-          <h3 className="project-modal__title">{project.title}</h3>
+          <h2 id={titleId} className="project-modal__title">
+            {project.title}
+          </h2>
           <p className="project-modal__desc">{project.summary}</p>
 
           <ul className="project-modal__roles">
@@ -67,10 +101,10 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
             <ul className="project-modal__highlights">
               {project.highlights.map((h) => (
                 <li key={h.title}>
-                  <h4 className="project-modal__highlight-title">
+                  <h3 className="project-modal__highlight-title">
                     {h.title}
                     {h.status === 'en-progreso' && <span className="project-modal__status mono-label">{copy.inProgress}</span>}
-                  </h4>
+                  </h3>
                   <p>{h.text}</p>
                 </li>
               ))}
@@ -95,6 +129,6 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
           )}
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

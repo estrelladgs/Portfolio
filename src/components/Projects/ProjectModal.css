@@ -1,14 +1,28 @@
+/* <dialog> reset: the dialog box spans the viewport; the panel is the visible card. */
 .project-modal {
   position: fixed;
   inset: 0;
-  z-index: 200;
-  background: rgba(11, 10, 10, 0.86);
-  backdrop-filter: blur(6px);
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 40px 20px;
+  background: transparent;
+  color: inherit;
+  animation: modalIn 260ms var(--ease-out) both;
+}
+
+.project-modal[open] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
-  animation: modalIn 260ms var(--ease-out) both;
+}
+
+.project-modal::backdrop {
+  background: rgba(11, 10, 10, 0.86);
+  backdrop-filter: blur(6px);
 }
 
 @keyframes modalIn {

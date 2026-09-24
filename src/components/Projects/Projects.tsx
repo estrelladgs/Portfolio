@@ -22,6 +22,13 @@ export function Projects() {
     track('case_view', { slug });
   };
 
+  const handleClose = () => {
+    const slug = openSlug;
+    setOpenSlug(null);
+    // Return focus to the card that opened the dialog (also covers browsers that don't focus buttons on click).
+    if (slug) requestAnimationFrame(() => buttonRefs.current[slug]?.focus());
+  };
+
   return (
     <section id="proyectos" className="projects">
       <div className="container">
@@ -54,7 +61,7 @@ export function Projects() {
         </div>
       </div>
 
-      {openProject && <ProjectModal project={openProject} copy={projects} onClose={() => setOpenSlug(null)} />}
+      {openProject && <ProjectModal project={openProject} copy={projects} onClose={handleClose} />}
     </section>
   );
 }
