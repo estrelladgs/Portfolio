@@ -2,6 +2,7 @@ import { useEffect, useId, useRef } from 'react';
 import { CONTENT, PLATFORM_LABELS, type LocalizedProject } from '../../i18n/content';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { ExternalLink } from '../ExternalLink/ExternalLink';
+import { YouTubeFacade } from './YouTubeFacade';
 import './ProjectModal.css';
 
 interface ProjectModalProps {
@@ -69,14 +70,12 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
 
         <div className="project-modal__media">
           {project.youtubeId ? (
-            <div className="project-modal__video">
-              <iframe
-                src={`https://www.youtube.com/embed/${project.youtubeId}`}
-                title={project.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
+            <YouTubeFacade
+              videoId={project.youtubeId}
+              title={`${copy.videoTitle}: ${project.title}`}
+              playLabel={`${copy.playVideo}: ${project.title}`}
+              poster={project.image}
+            />
           ) : project.image ? (
             <img src={project.image} alt={project.title} width={1200} height={800} />
           ) : (

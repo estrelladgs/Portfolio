@@ -238,6 +238,8 @@ interface LangCopy {
     viewCaseA11y: string;
     closeCue: string;
     linkCue: string;
+    playVideo: string;
+    videoTitle: string;
     platformsLabel: string;
     formatLabel: string;
     toolsLabel: string;
@@ -343,6 +345,8 @@ export const CONTENT: Record<Lang, LangCopy> = {
       viewCaseA11y: 'ver caso',
       closeCue: 'Cerrar',
       linkCue: 'Ver publicación',
+      playVideo: 'Reproducir vídeo',
+      videoTitle: 'Vídeo de YouTube',
       platformsLabel: 'PLATAFORMAS',
       formatLabel: 'FORMATO',
       toolsLabel: 'HERRAMIENTAS',
@@ -453,6 +457,8 @@ export const CONTENT: Record<Lang, LangCopy> = {
       viewCaseA11y: 'view case',
       closeCue: 'Close',
       linkCue: 'View original',
+      playVideo: 'Play video',
+      videoTitle: 'YouTube video',
       platformsLabel: 'PLATFORMS',
       formatLabel: 'FORMAT',
       toolsLabel: 'TOOLS',
