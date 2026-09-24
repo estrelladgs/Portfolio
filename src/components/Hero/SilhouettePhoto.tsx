@@ -1,8 +1,11 @@
+import { useLang } from '../../context/LangContext';
 import './SilhouettePhoto.css';
 
 export function SilhouettePhoto() {
+  const { copy } = useLang();
+
   return (
-    <figure className="silhouette" aria-hidden="false">
+    <figure className="silhouette">
       <span className="silhouette__shadow" aria-hidden="true" />
       <div className="silhouette__mask">
         <span className="silhouette__fill-base" aria-hidden="true" />
@@ -10,7 +13,7 @@ export function SilhouettePhoto() {
         <img
           className="silhouette__img silhouette__img--duotone"
           src="/assets/foto-estrella.png"
-          alt="Retrato de Estrella Domínguez Sánchez"
+          alt={copy.a11y.portraitAlt}
           width={1200}
           height={1600}
           {...{ fetchpriority: 'high' }}

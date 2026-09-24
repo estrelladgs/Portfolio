@@ -188,6 +188,14 @@ export const CV_HREF = '/assets/CV_Estrella_Dominguez_Sanchez_Content_Manager.pd
 /* ---------- copy de interfaz ---------- */
 
 interface LangCopy {
+  a11y: {
+    skipLink: string;
+    mainNav: string;
+    mobileNav: string;
+    heroLabel: string;
+    langGroup: string;
+    portraitAlt: string;
+  };
   nav: {
     about: string;
     services: string;
@@ -255,6 +263,14 @@ interface LangCopy {
 
 export const CONTENT: Record<Lang, LangCopy> = {
   es: {
+    a11y: {
+      skipLink: 'Saltar al contenido',
+      mainNav: 'Navegación principal',
+      mobileNav: 'Navegación móvil',
+      heroLabel: 'Presentación',
+      langGroup: 'Idioma',
+      portraitAlt: 'Retrato de Estrella Domínguez Sánchez',
+    },
     nav: {
       about: 'SOBRE MÍ',
       services: 'SERVICIOS',
@@ -356,6 +372,14 @@ export const CONTENT: Record<Lang, LangCopy> = {
     },
   },
   en: {
+    a11y: {
+      skipLink: 'Skip to content',
+      mainNav: 'Main navigation',
+      mobileNav: 'Mobile navigation',
+      heroLabel: 'Introduction',
+      langGroup: 'Language',
+      portraitAlt: 'Portrait of Estrella Domínguez Sánchez',
+    },
     nav: {
       about: 'ABOUT',
       services: 'SERVICES',

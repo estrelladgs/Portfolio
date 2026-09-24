@@ -103,6 +103,10 @@
   color: var(--ink-mute);
 }
 
+.lang-toggle__item {
+  display: contents;
+}
+
 .lang-toggle button {
   padding: 4px 2px;
   color: var(--ink-mute);

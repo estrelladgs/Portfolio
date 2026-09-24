@@ -1,4 +1,4 @@
-import { LangProvider } from './context/LangContext';
+import { LangProvider, useLang } from './context/LangContext';
 import { Header } from './components/Header/Header';
 import { HeroAbout } from './components/HeroAbout/HeroAbout';
 import { Services } from './components/Services/Services';
@@ -6,12 +6,19 @@ import { Projects } from './components/Projects/Projects';
 import { Contact } from './components/Contact/Contact';
 import { CustomCursor } from './components/CustomCursor/CustomCursor';
 
+function SkipLink() {
+  const { copy } = useLang();
+  return (
+    <a href="#main" className="skip-link">
+      {copy.a11y.skipLink}
+    </a>
+  );
+}
+
 export default function App() {
   return (
     <LangProvider>
-      <a href="#main" className="skip-link">
-        Saltar al contenido
-      </a>
+      <SkipLink />
       <Header />
       <main id="main">
         <HeroAbout />

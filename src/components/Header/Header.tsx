@@ -82,7 +82,7 @@ export function Header() {
             EDS<span className="fx-accent">.</span>
           </a>
 
-          <nav className="site-nav" aria-label="Navegación principal">
+          <nav className="site-nav" aria-label={copy.a11y.mainNav}>
             {NAV_ITEMS.map((item) => (
               <a key={item.key} href={item.href} className="site-nav__link">
                 {copy.nav[item.key]}
@@ -112,7 +112,7 @@ export function Header() {
       </header>
 
       <div id={MENU_ID} ref={menuRef} className={`mobile-menu${menuOpen ? ' is-open' : ''}`}>
-        <nav aria-label="Navegación móvil">
+        <nav aria-label={copy.a11y.mobileNav}>
           {NAV_ITEMS.map((item, i) => (
             <a
               key={item.key}

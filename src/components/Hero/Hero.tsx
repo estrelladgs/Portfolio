@@ -11,7 +11,7 @@ export function Hero({ heroRef }: HeroProps) {
   const { hero } = copy;
 
   return (
-    <section id="hero" className="hero" aria-label="Presentación" ref={heroRef}>
+    <section id="hero" className="hero" aria-label={copy.a11y.heroLabel} ref={heroRef}>
       <div className="hero__bg">
         <div className="hero__grid" aria-hidden="true" />
         <div className="hero__glow fx-accent" aria-hidden="true" />
