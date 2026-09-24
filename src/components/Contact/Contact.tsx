@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLang } from '../../context/LangContext';
 import { track } from '../../lib/analytics';
+import { ExternalLink } from '../ExternalLink/ExternalLink';
 import './Contact.css';
 
 export function Contact() {
@@ -77,10 +78,8 @@ export function Contact() {
 
           <ul className="contact__links">
             <li>
-              <a
+              <ExternalLink
                 href={contact.linkedin.href}
-                target="_blank"
-                rel="noreferrer"
                 className="contact__link-row"
                 onClick={() => track('linkedin_click')}
               >
@@ -88,7 +87,7 @@ export function Contact() {
                 <span className="contact__link-arrow" aria-hidden="true">
                   ↗
                 </span>
-              </a>
+              </ExternalLink>
             </li>
           </ul>
         </div>

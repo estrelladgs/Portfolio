@@ -195,6 +195,7 @@ interface LangCopy {
     heroLabel: string;
     langGroup: string;
     portraitAlt: string;
+    newTab: string;
   };
   nav: {
     about: string;
@@ -270,6 +271,7 @@ export const CONTENT: Record<Lang, LangCopy> = {
       heroLabel: 'Presentación',
       langGroup: 'Idioma',
       portraitAlt: 'Retrato de Estrella Domínguez Sánchez',
+      newTab: 'se abre en una pestaña nueva',
     },
     nav: {
       about: 'SOBRE MÍ',
@@ -379,6 +381,7 @@ export const CONTENT: Record<Lang, LangCopy> = {
       heroLabel: 'Introduction',
       langGroup: 'Language',
       portraitAlt: 'Portrait of Estrella Domínguez Sánchez',
+      newTab: 'opens in a new tab',
     },
     nav: {
       about: 'ABOUT',

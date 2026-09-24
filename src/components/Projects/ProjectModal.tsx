@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef } from 'react';
 import { CONTENT, PLATFORM_LABELS, type LocalizedProject } from '../../i18n/content';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import { ExternalLink } from '../ExternalLink/ExternalLink';
 import './ProjectModal.css';
 
 interface ProjectModalProps {
@@ -123,9 +124,9 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
           )}
 
           {project.externalUrl && (
-            <a className="project-modal__link mono-label" href={project.externalUrl} target="_blank" rel="noopener noreferrer">
-              {copy.linkCue} ↗
-            </a>
+            <ExternalLink className="project-modal__link mono-label" href={project.externalUrl}>
+              {copy.linkCue} <span aria-hidden="true">↗</span>
+            </ExternalLink>
           )}
         </div>
       </div>
