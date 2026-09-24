@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { CONTENT, type Lang } from '../i18n/content';
 
 interface LangContextValue {
@@ -10,18 +10,13 @@ interface LangContextValue {
 
 const LangContext = createContext<LangContextValue | null>(null);
 
-function readInitialLang(): Lang {
-  if (typeof document === 'undefined') return 'es';
-  const attr = document.documentElement.getAttribute('data-lang');
-  return attr === 'en' ? 'en' : 'es';
-}
-
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(readInitialLang);
+  // Always start in Spanish so the client matches the prerendered HTML;
+  // a stored preference is applied right after hydration.
+  const [lang, setLangState] = useState<Lang>('es');
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
-    document.documentElement.setAttribute('data-lang', next);
     document.documentElement.setAttribute('lang', next);
     try {
       localStorage.setItem('eds:lang', next);
@@ -29,6 +24,14 @@ export function LangProvider({ children }: { children: ReactNode }) {
       /* storage unavailable */
     }
   }, []);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('eds:lang') === 'en') setLang('en');
+    } catch {
+      /* storage unavailable */
+    }
+  }, [setLang]);
 
   const toggleLang = useCallback(() => {
     setLang(lang === 'es' ? 'en' : 'es');

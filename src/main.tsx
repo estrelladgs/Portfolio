@@ -1,11 +1,19 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App';
 import './styles/tokens.css';
 import './styles/global.css';
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')!;
+const app = (
   <StrictMode>
     <App />
-  </StrictMode>,
+  </StrictMode>
 );
+
+// In production the HTML is prerendered (scripts/prerender.mjs); in dev the root is empty.
+if (container.firstElementChild) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}
