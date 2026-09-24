@@ -226,6 +226,7 @@ interface LangCopy {
     heading: string;
     counterSuffix: string;
     viewCue: string;
+    viewCaseA11y: string;
     closeCue: string;
     linkCue: string;
     platformsLabel: string;
@@ -319,6 +320,7 @@ export const CONTENT: Record<Lang, LangCopy> = {
       heading: 'Casos de contenido, comunidad y diseño.',
       counterSuffix: 'SELECCIÓN',
       viewCue: 'VER',
+      viewCaseA11y: 'ver caso',
       closeCue: 'Cerrar',
       linkCue: 'Ver publicación',
       platformsLabel: 'PLATAFORMAS',
@@ -417,6 +419,7 @@ export const CONTENT: Record<Lang, LangCopy> = {
       heading: 'Content, community and design cases.',
       counterSuffix: 'SELECTED',
       viewCue: 'VIEW',
+      viewCaseA11y: 'view case',
       closeCue: 'Close',
       linkCue: 'View original',
       platformsLabel: 'PLATFORMS',

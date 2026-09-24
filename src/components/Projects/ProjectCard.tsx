@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type Ref } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import type { LocalizedProject } from '../../i18n/content';
 
@@ -6,12 +6,23 @@ interface ProjectCardProps {
   item: LocalizedProject;
   index: number;
   tagLabels: string[];
+  viewCaseLabel: string;
+  buttonRef: Ref<HTMLButtonElement>;
   dimmed: boolean;
   onHoverChange: (hovered: boolean) => void;
   onOpen: () => void;
 }
 
-export function ProjectCard({ item, index, tagLabels, dimmed, onHoverChange, onOpen }: ProjectCardProps) {
+export function ProjectCard({
+  item,
+  index,
+  tagLabels,
+  viewCaseLabel,
+  buttonRef,
+  dimmed,
+  onHoverChange,
+  onOpen,
+}: ProjectCardProps) {
   const elRef = useRef<HTMLElement | null>(null);
   const reducedMotion = useReducedMotion();
   const [inView, setInView] = useState(false);
@@ -97,7 +108,6 @@ export function ProjectCard({ item, index, tagLabels, dimmed, onHoverChange, onO
       onMouseMove={handleMouseMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      onClick={onOpen}
       data-cursor="view"
     >
       <div className="project-card__media">
@@ -121,8 +131,14 @@ export function ProjectCard({ item, index, tagLabels, dimmed, onHoverChange, onO
       </div>
       <div className="project-card__body">
         <div className="project-card__heading-row">
-          <h3 className="project-card__title">{item.title}</h3>
-          <span className="project-card__index mono-label">
+          <h3 className="project-card__title">
+            {/* Stretched button: its ::after covers the whole card, so the card stays clickable. */}
+            <button ref={buttonRef} type="button" className="project-card__button" aria-haspopup="dialog" onClick={onOpen}>
+              <span className="project-card__title-text">{item.title}</span>
+              <span className="visually-hidden">, {viewCaseLabel}</span>
+            </button>
+          </h3>
+          <span className="project-card__index mono-label" aria-hidden="true">
             {String(index + 1).padStart(2, '0')} ↗
           </span>
         </div>

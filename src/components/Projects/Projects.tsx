@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useLang } from '../../context/LangContext';
 import { getProjects } from '../../i18n/content';
 import { track } from '../../lib/analytics';
@@ -13,6 +13,7 @@ export function Projects() {
 
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const openProject = items.find((p) => p.slug === openSlug) ?? null;
 
@@ -41,6 +42,10 @@ export function Projects() {
               item={item}
               index={i}
               tagLabels={item.tags.map((tag) => projects.disciplines[tag])}
+              viewCaseLabel={projects.viewCaseA11y}
+              buttonRef={(el) => {
+                buttonRefs.current[item.slug] = el;
+              }}
               dimmed={hoveredSlug !== null && hoveredSlug !== item.slug}
               onHoverChange={(hovered) => setHoveredSlug(hovered ? item.slug : null)}
               onOpen={() => handleOpen(item.slug)}

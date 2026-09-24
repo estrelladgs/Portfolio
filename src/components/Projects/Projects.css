@@ -130,11 +130,40 @@
   font-weight: 600;
   font-size: 21px;
   letter-spacing: -0.03em;
+}
+
+.project-card__button {
+  text-align: left;
+  letter-spacing: inherit;
+  padding: 0;
+}
+
+/* Stretched hit area: the whole card activates the button. */
+.project-card__button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.project-card__title-text {
+  display: inline-block;
   transition: transform 300ms var(--ease-out);
 }
 
-.project-card:hover .project-card__title {
+.project-card:hover .project-card__title-text {
   transform: translateX(4px);
+}
+
+.project-card:has(.project-card__button:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@supports selector(:has(*)) {
+  .project-card__button:focus-visible {
+    outline: none;
+  }
 }
 
 .project-card__index {
@@ -198,7 +227,7 @@
 @media (prefers-reduced-motion: reduce) {
   .project-card,
   .project-card__img,
-  .project-card__title,
+  .project-card__title-text,
   .project-card__index {
     transition: opacity 200ms linear !important;
     transform: none !important;
