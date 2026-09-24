@@ -64,16 +64,21 @@
   transition: box-shadow 300ms var(--ease-out);
 }
 
+/* Only the media dims, so the card's text keeps AA contrast while another card is hovered. */
 .project-card.is-dimmed {
-  opacity: 0.55;
   transform: scale(0.985);
-  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  transition: transform 300ms var(--ease-out);
 }
 
 .project-card__media {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 10;
+  transition: opacity 300ms var(--ease-out);
+}
+
+.project-card.is-dimmed .project-card__media {
+  opacity: 0.55;
 }
 
 .project-card__img {
@@ -200,7 +205,7 @@
   border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   padding: 6px 12px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 @media (max-width: 767px) {

@@ -27,7 +27,7 @@
 
 .custom-cursor__label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   color: #0b0a0a;
   mix-blend-mode: normal;
