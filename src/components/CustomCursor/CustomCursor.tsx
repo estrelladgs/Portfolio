@@ -4,16 +4,26 @@ import { useLang } from '../../context/LangContext';
 import './CustomCursor.css';
 
 const LERP_FACTOR = 0.18;
+const POINTER_QUERY = '(pointer: fine) and (hover: hover)';
 
+/**
+ * Decorative follower dot. It never replaces the system cursor: it only renders
+ * for fine, hover-capable pointers and is off when reduced motion is requested.
+ */
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement | null>(null);
-  const [enabled, setEnabled] = useState(false);
+  const [finePointer, setFinePointer] = useState(false);
   const [variant, setVariant] = useState<'default' | 'view' | 'link'>('default');
   const reducedMotion = useReducedMotion();
   const { copy } = useLang();
+  const enabled = finePointer && !reducedMotion;
 
   useEffect(() => {
-    setEnabled(window.matchMedia('(pointer: fine)').matches);
+    const mq = window.matchMedia(POINTER_QUERY);
+    const update = () => setFinePointer(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
   }, []);
 
   useEffect(() => {
@@ -34,9 +44,8 @@ export function CustomCursor() {
     };
 
     const tick = () => {
-      const factor = reducedMotion ? 1 : LERP_FACTOR;
-      current.x += (target.x - current.x) * factor;
-      current.y += (target.y - current.y) * factor;
+      current.x += (target.x - current.x) * LERP_FACTOR;
+      current.y += (target.y - current.y) * LERP_FACTOR;
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
       }
@@ -50,7 +59,7 @@ export function CustomCursor() {
       window.removeEventListener('mousemove', handleMove);
       cancelAnimationFrame(rafId);
     };
-  }, [enabled, reducedMotion]);
+  }, [enabled]);
 
   if (!enabled) return null;
 
