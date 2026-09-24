@@ -241,7 +241,9 @@ interface LangCopy {
     headingSolid: string;
     headingOutline: string;
     emailCta: string;
+    copyEmail: string;
     copied: string;
+    copyFailed: string;
     linkedin: { label: string; href: string };
     cvHeading: string;
     cvButton: string;
@@ -342,7 +344,9 @@ export const CONTENT: Record<Lang, LangCopy> = {
       headingSolid: 'Hablemos',
       headingOutline: 'cuando quieras',
       emailCta: 'estrelladomsan@gmail.com',
-      copied: 'COPIADO',
+      copyEmail: 'Copiar email',
+      copied: 'Email copiado',
+      copyFailed: 'No se pudo copiar el email',
       linkedin: { label: 'LinkedIn: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
       cvHeading: 'Currículum',
       cvButton: 'Descargar CV',
@@ -441,7 +445,9 @@ export const CONTENT: Record<Lang, LangCopy> = {
       headingSolid: "Let's talk",
       headingOutline: 'whenever you like',
       emailCta: 'estrelladomsan@gmail.com',
-      copied: 'COPIED',
+      copyEmail: 'Copy email',
+      copied: 'Email copied',
+      copyFailed: 'Could not copy the email',
       linkedin: { label: 'LinkedIn: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
       cvHeading: 'Résumé',
       cvButton: 'Download CV (Spanish version)',

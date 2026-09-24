@@ -73,14 +73,29 @@
   padding: 18px 28px;
 }
 
-.contact__toast {
+.contact__email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Always in the DOM so the live region announces changes; only painted when it has text.
+   Scoped selector so it wins over .mono-label's color from global.css. */
+.contact__cta .contact__toast {
   position: absolute;
   left: 0;
-  top: -34px;
+  top: -40px;
   background: var(--ink);
   color: #0b0a0a;
   padding: 6px 12px;
   border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact__toast.is-visible {
+  opacity: 1;
   animation: toastIn 200ms var(--ease-out) both;
 }
 

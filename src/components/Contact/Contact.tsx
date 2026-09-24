@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLang } from '../../context/LangContext';
 import { track } from '../../lib/analytics';
 import './Contact.css';
@@ -6,19 +6,28 @@ import './Contact.css';
 export function Contact() {
   const { lang, copy } = useLang();
   const { contact } = copy;
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const resetTimer = useRef<number | null>(null);
 
-  const handleContextMenu = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleCopy = async () => {
+    let status: 'copied' | 'failed' = 'failed';
     try {
       await navigator.clipboard.writeText(contact.emailCta);
-      setCopied(true);
+      status = 'copied';
       track('email_copy');
-      window.setTimeout(() => setCopied(false), 1800);
     } catch {
-      /* clipboard unavailable */
+      /* clipboard unavailable (e.g. insecure context or permission denied) */
     }
+    setCopyStatus(status);
+    if (resetTimer.current) window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setCopyStatus('idle'), 2500);
   };
+
+  useEffect(() => () => {
+    if (resetTimer.current) window.clearTimeout(resetTimer.current);
+  }, []);
+
+  const statusText = copyStatus === 'copied' ? contact.copied : copyStatus === 'failed' ? contact.copyFailed : '';
 
   return (
     <section id="contacto" className="contact">
@@ -35,14 +44,21 @@ export function Contact() {
 
         <div className="contact__row">
           <div className="contact__cta">
-            <a
-              href={`mailto:${contact.emailCta}`}
-              className="pill-btn pill-btn--primary contact__email-btn"
-              onContextMenu={handleContextMenu}
+            <div className="contact__email-row">
+              <a href={`mailto:${contact.emailCta}`} className="pill-btn pill-btn--primary contact__email-btn">
+                {contact.emailCta} ↗
+              </a>
+              <button type="button" className="pill-btn pill-btn--secondary" onClick={handleCopy}>
+                {contact.copyEmail}
+              </button>
+            </div>
+            <span
+              className={`contact__toast mono-label${statusText ? ' is-visible' : ''}`}
+              role="status"
+              aria-live="polite"
             >
-              {contact.emailCta} ↗
-            </a>
-            {copied && <span className="contact__toast mono-label">{contact.copied}</span>}
+              {statusText}
+            </span>
 
             <div className="contact__cv">
               <span className="mono-label contact__cv-label">{contact.cvHeading}</span>
