@@ -114,7 +114,7 @@ export function ProjectCard({
         {item.image ? (
           <img
             src={item.image}
-            alt={item.title}
+            alt=""
             loading="lazy"
             width={1200}
             height={800}

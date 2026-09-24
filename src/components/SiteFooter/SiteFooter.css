@@ -1,0 +1,23 @@
+/* Vertical padding lives on the footer: .container (global.css, loaded later) resets the inner's padding. */
+.site-footer {
+  background: var(--bg);
+  padding: 32px 0 48px;
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 767px) {
+  .site-footer {
+    padding-bottom: 40px;
+  }
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

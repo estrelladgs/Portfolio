@@ -77,7 +77,7 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
               poster={project.image}
             />
           ) : project.image ? (
-            <img src={project.image} alt={project.title} width={1200} height={800} />
+            <img src={project.image} alt={project.imageAlt ?? ''} width={1200} height={800} />
           ) : (
             <div className="project-modal__placeholder" aria-hidden="true" />
           )}

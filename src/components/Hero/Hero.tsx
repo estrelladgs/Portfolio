@@ -28,7 +28,7 @@ export function Hero({ heroRef }: HeroProps) {
           <h1 className="hero__h1">
             <span className="hero__h1-line reveal-line" style={{ animationDelay: '60ms' }}>
               <span className="hero__h1-mask">{hero.h1Line1}</span>
-            </span>
+            </span>{' '}
             <span className="hero__h1-line hero__h1-line--accent fx-accent reveal-line" style={{ animationDelay: '120ms' }}>
               <span className="hero__h1-mask">{hero.h1Line2}</span>
             </span>
@@ -46,7 +46,8 @@ export function Hero({ heroRef }: HeroProps) {
           </div>
         </div>
 
-        <div className="hero__cards">
+        {/* Decorative illustration (sample script and a video frame): hidden from assistive tech. */}
+        <div className="hero__cards" aria-hidden="true">
           <article className="hero-card hero-card--a" style={{ animationDelay: '500ms' }}>
             <p className="hero-card__title mono-label">{hero.cardA.title}</p>
             <div className="hero-card__script">
@@ -72,7 +73,7 @@ export function Hero({ heroRef }: HeroProps) {
       </div>
 
       <a href="#sobre-mi" className="hero__scroll-cue mono-label">
-        ↓ {hero.scroll}
+<span aria-hidden="true">↓</span> {hero.scroll}
       </a>
     </section>
   );

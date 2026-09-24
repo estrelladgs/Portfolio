@@ -91,11 +91,6 @@ export function Contact() {
             </li>
           </ul>
         </div>
-
-        <footer className="contact__footer">
-          <span className="mono-label">{contact.footerLeft}</span>
-          <span className="mono-label">{contact.footerRight}</span>
-        </footer>
       </div>
     </section>
   );

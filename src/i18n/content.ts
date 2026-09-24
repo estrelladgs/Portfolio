@@ -15,6 +15,8 @@ export interface ProjectHighlight {
 interface ProjectText {
   title: string;
   summary: string;
+  /** Describes only what is visible in `image`. */
+  imageAlt?: string;
   highlights: ProjectHighlight[];
 }
 
@@ -49,6 +51,8 @@ export const PROJECTS: Project[] = [
     text: {
       es: {
         title: 'Asociación Xarxa Aitana',
+        imageAlt:
+          'Captura de una web con el logotipo de Xarxa d’Estudiants de la Comunitat Valenciana: estudiantes en un aula levantando la mano y el lema «Viu, Decidix, Participa».',
         summary:
           'Web and Social Media Manager (voluntariado, 2021–2024) de una asociación educativa: comunidad, contenido y vídeo en Instagram, TikTok, WordPress y WhatsApp.',
         highlights: [
@@ -60,6 +64,8 @@ export const PROJECTS: Project[] = [
       },
       en: {
         title: 'Xarxa Aitana Association',
+        imageAlt:
+          'Screenshot of a website with the Xarxa d’Estudiants de la Comunitat Valenciana logo: students in a classroom raising their hands and the slogan “Viu, Decidix, Participa”.',
         summary:
           'Web and Social Media Manager (volunteer, 2021–2024) for an educational association: community, content and video across Instagram, TikTok, WordPress and WhatsApp.',
         highlights: [
@@ -83,11 +89,15 @@ export const PROJECTS: Project[] = [
     text: {
       es: {
         title: 'Vídeo · Marta Vegas',
+        imageAlt:
+          'Portada del vídeo «Un día conmigo» de Marta Vegas: collage de escenas en el gimnasio, en la cocina y preparando pescado al horno.',
         summary: 'Grabación y edición de un vídeo para la creadora de contenido Marta Vegas, publicado en YouTube.',
         highlights: [],
       },
       en: {
         title: 'Video · Marta Vegas',
+        imageAlt:
+          'Cover of Marta Vegas’s video “Un día conmigo”: a collage of scenes at the gym, in the kitchen and preparing baked fish.',
         summary: 'Filming and editing of a video for content creator Marta Vegas, published on YouTube.',
         highlights: [],
       },
@@ -103,6 +113,7 @@ export const PROJECTS: Project[] = [
     text: {
       es: {
         title: 'FoxBit',
+        imageAlt: 'Pantalla de configuración de perfil de FoxBit: editar perfil, cambiar contraseña y configuración de cookies.',
         summary:
           'Plataforma ed-tech creada por un equipo de 5 personas. Me encargué del blog y la newsletter, y diseñé prototipos y flujos de usuario.',
         highlights: [
@@ -113,6 +124,7 @@ export const PROJECTS: Project[] = [
       },
       en: {
         title: 'FoxBit',
+        imageAlt: 'FoxBit profile settings screen: edit profile, change password and cookie settings.',
         summary:
           'Ed-tech platform created by a team of 5. I ran the blog and newsletter, and designed prototypes and user flows.',
         highlights: [
@@ -135,6 +147,7 @@ export const PROJECTS: Project[] = [
     text: {
       es: {
         title: 'Lugna',
+        imageAlt: 'Tres pantallas del prototipo de Lugna: inicio con el progreso, catálogo de programas y clases en directo.',
         summary:
           'App de salud y bienestar, mi Trabajo de Fin de Grado. Un caso de comunicación y lanzamiento de producto: escuchar a los usuarios, diseñar la experiencia y preparar cómo contarla.',
         highlights: [
@@ -150,6 +163,7 @@ export const PROJECTS: Project[] = [
       },
       en: {
         title: 'Lugna',
+        imageAlt: 'Three screens of the Lugna prototype: home with progress, programme catalogue and live classes.',
         summary:
           'Health and wellness app, my final degree project. A product communication and launch case: listening to users, designing the experience and planning how to tell its story.',
         highlights: [
@@ -196,6 +210,7 @@ interface LangCopy {
     langGroup: string;
     portraitAlt: string;
     newTab: string;
+    motionNotice: string;
   };
   nav: {
     about: string;
@@ -274,6 +289,8 @@ export const CONTENT: Record<Lang, LangCopy> = {
       langGroup: 'Idioma',
       portraitAlt: 'Retrato de Estrella Domínguez Sánchez',
       newTab: 'se abre en una pestaña nueva',
+      motionNotice:
+        'Las animaciones de esta web se desactivan si tu sistema tiene activada la opción de reducir el movimiento.',
     },
     nav: {
       about: 'SOBRE MÍ',
@@ -386,6 +403,7 @@ export const CONTENT: Record<Lang, LangCopy> = {
       langGroup: 'Language',
       portraitAlt: 'Portrait of Estrella Domínguez Sánchez',
       newTab: 'opens in a new tab',
+      motionNotice: 'Animations on this site are turned off if your system has the reduce motion setting enabled.',
     },
     nav: {
       about: 'ABOUT',
