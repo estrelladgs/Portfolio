@@ -1,14 +1,3 @@
-@property --float-a {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
-}
-@property --float-b {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
-}
-
 .hero {
   position: relative;
   min-height: 720px;
@@ -155,12 +144,12 @@
   top: 78px;
   width: 250px;
   --base-rotate: -7deg;
-  animation-name: cardIn, floatA;
+  animation-name: cardIn, heroFloat;
   animation-duration: 520ms, 6s;
   animation-timing-function: var(--ease-out), ease-in-out;
   animation-iteration-count: 1, infinite;
   animation-delay: 500ms, 500ms;
-  transform: translate3d(calc(var(--par-x, 0) * -34px), calc(var(--par-y, 0) * -28px + var(--scroll-p, 0) * 40px + var(--float-a)), 0)
+  transform: translate3d(calc(var(--par-x, 0) * -34px), calc(var(--par-y, 0) * -28px + var(--scroll-p, 0) * 40px), 0)
     rotateY(calc(var(--par-x, 0) * 10deg)) rotateX(calc(var(--par-y, 0) * -8deg)) rotate(var(--base-rotate));
 }
 
@@ -169,12 +158,12 @@
   top: 210px;
   width: 290px;
   --base-rotate: 5deg;
-  animation-name: cardIn, floatB;
+  animation-name: cardIn, heroFloat;
   animation-duration: 520ms, 7.5s;
   animation-timing-function: var(--ease-out), ease-in-out;
   animation-iteration-count: 1, infinite;
   animation-delay: 590ms, 590ms;
-  transform: translate3d(calc(var(--par-x, 0) * -34px), calc(var(--par-y, 0) * -28px + var(--scroll-p, 0) * 90px + var(--float-b)), 0)
+  transform: translate3d(calc(var(--par-x, 0) * -34px), calc(var(--par-y, 0) * -28px + var(--scroll-p, 0) * 90px), 0)
     rotateY(calc(var(--par-x, 0) * 10deg)) rotateX(calc(var(--par-y, 0) * -8deg)) rotate(var(--base-rotate));
 }
 
@@ -241,22 +230,14 @@
   }
 }
 
-@keyframes floatA {
+/* Floats via the independent `translate` property (composited), which adds to the parallax `transform`. */
+@keyframes heroFloat {
   0%,
   100% {
-    --float-a: 0px;
+    translate: 0 0;
   }
   50% {
-    --float-a: -10px;
-  }
-}
-@keyframes floatB {
-  0%,
-  100% {
-    --float-b: 0px;
-  }
-  50% {
-    --float-b: -10px;
+    translate: 0 -10px;
   }
 }
 

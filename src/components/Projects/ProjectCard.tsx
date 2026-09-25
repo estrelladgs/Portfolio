@@ -54,30 +54,28 @@ export function ProjectCard({
     if (rafId.current !== null) cancelAnimationFrame(rafId.current);
   }, []);
 
-  const startLoop = () => {
-    if (rafId.current !== null) return;
-    const tick = () => {
-      current.current.rx += (target.current.rx - current.current.rx) * 0.18;
-      current.current.ry += (target.current.ry - current.current.ry) * 0.18;
-      current.current.sx += (target.current.sx - current.current.sx) * 0.18;
-      current.current.sy += (target.current.sy - current.current.sy) * 0.18;
-      const el = elRef.current;
-      if (el) {
-        el.style.setProperty('--tilt-x', `${current.current.rx.toFixed(2)}deg`);
-        el.style.setProperty('--tilt-y', `${current.current.ry.toFixed(2)}deg`);
-        el.style.setProperty('--shadow-x', `${current.current.sx.toFixed(1)}px`);
-        el.style.setProperty('--shadow-y', `${current.current.sy.toFixed(1)}px`);
-      }
-      rafId.current = requestAnimationFrame(tick);
-    };
-    rafId.current = requestAnimationFrame(tick);
+  // Eases the tilt towards the pointer; frames only run until it settles, so a still pointer costs nothing.
+  const tick = () => {
+    const c = current.current;
+    const t = target.current;
+    c.rx += (t.rx - c.rx) * 0.18;
+    c.ry += (t.ry - c.ry) * 0.18;
+    c.sx += (t.sx - c.sx) * 0.18;
+    c.sy += (t.sy - c.sy) * 0.18;
+    const settled = [c.rx - t.rx, c.ry - t.ry, c.sx - t.sx, c.sy - t.sy].every((d) => Math.abs(d) < 0.01);
+    if (settled) current.current = { ...t };
+    const el = elRef.current;
+    if (el) {
+      el.style.setProperty('--tilt-x', `${current.current.rx.toFixed(2)}deg`);
+      el.style.setProperty('--tilt-y', `${current.current.ry.toFixed(2)}deg`);
+      el.style.setProperty('--shadow-x', `${current.current.sx.toFixed(1)}px`);
+      el.style.setProperty('--shadow-y', `${current.current.sy.toFixed(1)}px`);
+    }
+    rafId.current = settled ? null : requestAnimationFrame(tick);
   };
 
-  const stopLoop = () => {
-    if (rafId.current !== null) {
-      cancelAnimationFrame(rafId.current);
-      rafId.current = null;
-    }
+  const schedule = () => {
+    if (rafId.current === null) rafId.current = requestAnimationFrame(tick);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -85,23 +83,16 @@ export function ProjectCard({
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-    target.current.rx = y * -4;
-    target.current.ry = x * 6;
-    target.current.sx = -x * 14;
-    target.current.sy = -y * 10;
+    target.current = { rx: y * -4, ry: x * 6, sx: -x * 14, sy: -y * 10 };
+    schedule();
   };
 
-  const handleEnter = () => {
-    onHoverChange(true);
-    if (!reducedMotion) startLoop();
-  };
+  const handleEnter = () => onHoverChange(true);
 
   const handleLeave = () => {
     onHoverChange(false);
     target.current = { rx: 0, ry: 0, sx: 0, sy: 0 };
-    if (!reducedMotion) {
-      window.setTimeout(stopLoop, 520);
-    }
+    if (!reducedMotion) schedule();
   };
 
   return (

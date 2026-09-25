@@ -31,11 +31,27 @@ export function CustomCursor() {
 
     const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const current = { ...target };
-    let rafId: number;
+    // Frames only run while the dot is catching up with the pointer; a still pointer costs nothing.
+    let rafId: number | null = null;
+
+    const tick = () => {
+      current.x += (target.x - current.x) * LERP_FACTOR;
+      current.y += (target.y - current.y) * LERP_FACTOR;
+      const settled = Math.abs(target.x - current.x) < 0.1 && Math.abs(target.y - current.y) < 0.1;
+      if (settled) {
+        current.x = target.x;
+        current.y = target.y;
+      }
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
+      }
+      rafId = settled ? null : requestAnimationFrame(tick);
+    };
 
     const handleMove = (e: MouseEvent) => {
       target.x = e.clientX;
       target.y = e.clientY;
+      if (rafId === null) rafId = requestAnimationFrame(tick);
 
       const el = e.target as HTMLElement;
       if (el.closest('[data-cursor="view"]')) setVariant('view');
@@ -43,21 +59,11 @@ export function CustomCursor() {
       else setVariant('default');
     };
 
-    const tick = () => {
-      current.x += (target.x - current.x) * LERP_FACTOR;
-      current.y += (target.y - current.y) * LERP_FACTOR;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
     window.addEventListener('mousemove', handleMove);
-    rafId = requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener('mousemove', handleMove);
-      cancelAnimationFrame(rafId);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, [enabled]);
 
