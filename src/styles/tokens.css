@@ -17,9 +17,10 @@
   --accent-soft: rgba(255, 77, 141, 0.18);
 
   /* tipografia */
-  --font-display: 'Bricolage Grotesque', sans-serif;
-  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  /* each web font is followed by a metric-matched local fallback (fonts.css) to avoid layout shift on swap */
+  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque Fallback', sans-serif;
+  --font-body: 'IBM Plex Sans Variable', 'IBM Plex Sans Fallback', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'IBM Plex Mono Fallback', ui-monospace, monospace;
 
   /* sombras */
   --sh-card: 0 24px 46px -22px rgba(0, 0, 0, 0.8);
