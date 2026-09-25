@@ -1,5 +1,12 @@
 import { useLang } from '../../context/LangContext';
+import { Picture } from '../Picture/Picture';
+// TODO_FOTO_PERFIL: sustituir por la foto en alta (mín. 840×1120, 3:4) y ampliar los anchos a 230;460;690;840.
+// The current source is 500×500 with transparency, so widths are capped at 500 and the fallback stays PNG.
+import portrait from '../../assets/foto-estrella.png?w=230;420;500&format=avif;webp;png&as=picture';
 import './SilhouettePhoto.css';
+
+// Box: 230px wide on mobile, 340px on tablet, 420px on desktop.
+const PORTRAIT_SIZES = '(max-width: 767px) 230px, (max-width: 1023px) 340px, 420px';
 
 export function SilhouettePhoto() {
   const { copy } = useLang();
@@ -10,22 +17,20 @@ export function SilhouettePhoto() {
       <div className="silhouette__mask">
         <span className="silhouette__fill-base" aria-hidden="true" />
         <span className="silhouette__fill-accent fx-accent" aria-hidden="true" />
-        <img
+        <Picture
+          picture={portrait}
+          sizes={PORTRAIT_SIZES}
           className="silhouette__img silhouette__img--duotone"
-          src="/assets/foto-estrella.png"
           alt={copy.a11y.portraitAlt}
-          width={1200}
-          height={1600}
-          {...{ fetchpriority: 'high' }}
+          highPriority
         />
-        <img
+        <Picture
+          picture={portrait}
+          sizes={PORTRAIT_SIZES}
           className="silhouette__img silhouette__img--color"
-          src="/assets/foto-estrella.png"
           alt=""
           aria-hidden="true"
           loading="lazy"
-          width={1200}
-          height={1600}
         />
         <span className="silhouette__gradient fx-accent" aria-hidden="true" />
       </div>

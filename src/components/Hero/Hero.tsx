@@ -1,5 +1,7 @@
 import type { Ref } from 'react';
 import { useLang } from '../../context/LangContext';
+import { HERO_VIDEO_FRAME } from '../../i18n/content';
+import { Picture } from '../Picture/Picture';
 import './Hero.css';
 
 interface HeroProps {
@@ -65,7 +67,8 @@ export function Hero({ heroRef }: HeroProps) {
           <article className="hero-card hero-card--b" style={{ animationDelay: '590ms' }}>
             <p className="hero-card__title mono-label">{hero.cardB.title}</p>
             <div className="hero-card__image-slot">
-              <img src="/assets/marta-vegas-frame.jpg" alt="" width={290} height={180} />
+              {/* Above the fold on desktop: eager. The cards are hidden below 1024px, so nothing loads there. */}
+              <Picture picture={HERO_VIDEO_FRAME} sizes="290px" alt="" hiddenBelow={1024} />
               <span className="hero-card__image-label mono-label">{hero.cardB.slot}</span>
             </div>
           </article>

@@ -3,6 +3,10 @@ import { CONTENT, PLATFORM_LABELS, type LocalizedProject } from '../../i18n/cont
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { ExternalLink } from '../ExternalLink/ExternalLink';
 import { YouTubeFacade } from './YouTubeFacade';
+import { Picture } from '../Picture/Picture';
+
+// Panel is min(920px, 100vw - 40px) wide.
+const MODAL_IMAGE_SIZES = '(max-width: 959px) calc(100vw - 40px), 920px';
 import './ProjectModal.css';
 
 interface ProjectModalProps {
@@ -75,9 +79,10 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
               title={`${copy.videoTitle}: ${project.title}`}
               playLabel={`${copy.playVideo}: ${project.title}`}
               poster={project.image}
+              posterSizes={MODAL_IMAGE_SIZES}
             />
           ) : project.image ? (
-            <img src={project.image} alt={project.imageAlt ?? ''} width={1200} height={800} />
+            <Picture picture={project.image} sizes={MODAL_IMAGE_SIZES} alt={project.imageAlt ?? ''} />
           ) : (
             <div className="project-modal__placeholder" aria-hidden="true" />
           )}

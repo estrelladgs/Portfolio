@@ -1,3 +1,11 @@
+import type { PictureData } from '../components/Picture/Picture';
+// Responsive variants (hashed AVIF/WebP/JPEG). Widths never exceed the original:
+// cards render up to ~400px wide, the modal up to 920px, the hero card at 290px (all ×2 for retina).
+import xarxaImg from '../assets/xarxa-web.jpg?w=400;800;1200;1840&format=avif;webp;jpg&as=picture';
+import martaImg from '../assets/marta-vegas-frame.jpg?w=290;400;580;800;1200;1840&format=avif;webp;jpg&as=picture';
+import foxbitImg from '../assets/foxbit-mockup-1.jpg?w=400;717&format=avif;webp;jpg&as=picture';
+import lugnaImg from '../assets/lugna-mockup-1.jpg?w=400;800;1071&format=avif;webp;jpg&as=picture';
+
 export type Lang = 'es' | 'en';
 
 /* ---------- proyectos: tipos ---------- */
@@ -26,7 +34,7 @@ export interface Project {
   platforms: Platform[];
   format: Format[];
   tools: string[];
-  image?: string;
+  image?: PictureData;
   youtubeId?: string;
   externalUrl?: string;
   text: Record<Lang, ProjectText>;
@@ -47,7 +55,7 @@ export const PROJECTS: Project[] = [
     // TODO_XARXA_FORMAT: confirmar si además de reels e historias hubo carruseles.
     format: ['vertical'],
     tools: ['CapCut', 'Adobe Premiere', 'WordPress'],
-    image: '/assets/xarxa-web.jpg',
+    image: xarxaImg,
     text: {
       es: {
         title: 'Asociación Xarxa Aitana',
@@ -83,7 +91,7 @@ export const PROJECTS: Project[] = [
     platforms: ['youtube'],
     format: ['horizontal'],
     tools: ['CapCut', 'Adobe Premiere'],
-    image: '/assets/marta-vegas-frame.jpg',
+    image: martaImg,
     youtubeId: 'AnG9zgIpWhg',
     externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
     text: {
@@ -109,7 +117,7 @@ export const PROJECTS: Project[] = [
     platforms: ['blog', 'newsletter'],
     format: ['texto'],
     tools: ['WordPress', 'Figma'],
-    image: '/assets/foxbit-mockup-1.jpg',
+    image: foxbitImg,
     text: {
       es: {
         title: 'FoxBit',
@@ -143,7 +151,7 @@ export const PROJECTS: Project[] = [
     // TODO_LUGNA_FORMAT: formatos de las piezas de lanzamiento.
     format: [],
     tools: ['Figma'],
-    image: '/assets/lugna-mockup-1.jpg',
+    image: lugnaImg,
     text: {
       es: {
         title: 'Lugna',
@@ -508,3 +516,5 @@ export const CONTENT: Record<Lang, LangCopy> = {
     },
   },
 };
+
+export const HERO_VIDEO_FRAME = martaImg;

@@ -33,6 +33,11 @@ img {
   display: block;
 }
 
+/* <picture> is only a source wrapper: let the <img> inside keep its layout role. */
+picture {
+  display: contents;
+}
+
 a {
   color: inherit;
   text-decoration: none;

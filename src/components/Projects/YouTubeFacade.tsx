@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
+import { Picture, type PictureData } from '../Picture/Picture';
 
 interface YouTubeFacadeProps {
   videoId: string;
   /** Descriptive iframe title, e.g. "Vídeo de YouTube: Vídeo · Marta Vegas". */
   title: string;
   playLabel: string;
-  poster?: string;
+  poster?: PictureData;
+  posterSizes: string;
 }
 
 /**
  * Shows a poster and a play button; the YouTube iframe (and its third-party
  * requests) only loads after the user asks for it.
  */
-export function YouTubeFacade({ videoId, title, playLabel, poster }: YouTubeFacadeProps) {
+export function YouTubeFacade({ videoId, title, playLabel, poster, posterSizes }: YouTubeFacadeProps) {
   const [playing, setPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -37,7 +39,7 @@ export function YouTubeFacade({ videoId, title, playLabel, poster }: YouTubeFaca
 
   return (
     <button type="button" className="project-modal__facade" onClick={() => setPlaying(true)}>
-      {poster && <img src={poster} alt="" width={1200} height={675} />}
+      {poster && <Picture picture={poster} sizes={posterSizes} alt="" />}
       <span className="project-modal__facade-play" aria-hidden="true">
         ▶
       </span>

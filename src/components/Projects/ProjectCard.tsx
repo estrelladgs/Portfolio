@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState, type Ref } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import type { LocalizedProject } from '../../i18n/content';
+import { Picture } from '../Picture/Picture';
+
+// Grid: 1 column on mobile (22px gutters), 2 up to 1279px, then 3–4 columns of at most ~400px.
+const CARD_IMAGE_SIZES = '(max-width: 767px) calc(100vw - 44px), (max-width: 1279px) 50vw, 400px';
 
 interface ProjectCardProps {
   item: LocalizedProject;
@@ -112,12 +116,11 @@ export function ProjectCard({
     >
       <div className="project-card__media">
         {item.image ? (
-          <img
-            src={item.image}
+          <Picture
+            picture={item.image}
+            sizes={CARD_IMAGE_SIZES}
             alt=""
             loading="lazy"
-            width={1200}
-            height={800}
             className="project-card__img"
           />
         ) : (
