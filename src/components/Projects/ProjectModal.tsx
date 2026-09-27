@@ -7,6 +7,16 @@ import { Picture } from '../Picture/Picture';
 
 // Panel is min(920px, 100vw - 40px) wide.
 const MODAL_IMAGE_SIZES = '(max-width: 959px) calc(100vw - 40px), 920px';
+
+/**
+ * The media box is 16:9 by default. Images already framed between 16:10 and 16:9
+ * keep their own ratio so object-fit: cover doesn't trim them.
+ */
+function mediaAspect(project: LocalizedProject): string | undefined {
+  if (project.youtubeId || !project.image) return undefined;
+  const ratio = project.image.img.w / project.image.img.h;
+  return ratio >= 1.6 - 0.01 && ratio <= 16 / 9 ? `${project.image.img.w} / ${project.image.img.h}` : undefined;
+}
 import './ProjectModal.css';
 
 interface ProjectModalProps {
@@ -72,7 +82,7 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
           ✕
         </button>
 
-        <div className="project-modal__media">
+        <div className="project-modal__media" style={{ aspectRatio: mediaAspect(project) }}>
           {project.youtubeId ? (
             <YouTubeFacade
               videoId={project.youtubeId}

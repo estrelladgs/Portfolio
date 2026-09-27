@@ -1,7 +1,7 @@
 import type { PictureData } from '../components/Picture/Picture';
 // Responsive variants (hashed AVIF/WebP/JPEG). Widths never exceed the original:
 // cards render up to ~400px wide, the modal up to 920px, the hero card at 290px (all ×2 for retina).
-import xarxaImg from '../assets/xarxa-web.jpg?w=400;800;1200;1840&format=avif;webp;jpg&as=picture';
+import xarxaImg from '../assets/xarxa-aitana.png?w=400;800;1060&format=avif;webp;jpg&as=picture';
 import martaImg from '../assets/marta-vegas-frame.jpg?w=290;400;580;800;1200;1840&format=avif;webp;jpg&as=picture';
 import foxbitImg from '../assets/foxbit-mockup-1.jpg?w=400;717&format=avif;webp;jpg&as=picture';
 import lugnaImg from '../assets/lugna-mockup-1.jpg?w=400;800;1071&format=avif;webp;jpg&as=picture';
@@ -55,12 +55,13 @@ export const PROJECTS: Project[] = [
     // TODO_XARXA_FORMAT: confirmar si además de reels e historias hubo carruseles.
     format: ['vertical'],
     tools: ['CapCut', 'Adobe Premiere', 'WordPress'],
+    // TODO_PERMISO_XARXA: la imagen muestra a personas identificables (web pública de la asociación);
+    // confirmar con Xarxa Aitana que puede reutilizarse en el portfolio antes de publicar en main.
     image: xarxaImg,
     text: {
       es: {
         title: 'Asociación Xarxa Aitana',
-        imageAlt:
-          'Captura de una web con el logotipo de Xarxa d’Estudiants de la Comunitat Valenciana: estudiantes en un aula levantando la mano y el lema «Viu, Decidix, Participa».',
+        imageAlt: 'Estudiantes en un aula levantando la mano junto al lema «Viu, Decidix, Participa».',
         summary:
           'Web and Social Media Manager (voluntariado, 2021–2024) de una asociación educativa: comunidad, contenido y vídeo en Instagram, TikTok, WordPress y WhatsApp.',
         highlights: [
@@ -72,8 +73,7 @@ export const PROJECTS: Project[] = [
       },
       en: {
         title: 'Xarxa Aitana Association',
-        imageAlt:
-          'Screenshot of a website with the Xarxa d’Estudiants de la Comunitat Valenciana logo: students in a classroom raising their hands and the slogan “Viu, Decidix, Participa”.',
+        imageAlt: 'Students in a classroom raising their hands next to the slogan “Viu, Decidix, Participa”.',
         summary:
           'Web and Social Media Manager (volunteer, 2021–2024) for an educational association: community, content and video across Instagram, TikTok, WordPress and WhatsApp.',
         highlights: [
@@ -91,6 +91,8 @@ export const PROJECTS: Project[] = [
     platforms: ['youtube'],
     format: ['horizontal'],
     tools: ['CapCut', 'Adobe Premiere'],
+    // TODO_PERMISO_MARTA_VEGAS: confirmar con Marta Vegas que el fotograma y el vídeo pueden mostrarse
+    // en el portfolio antes de publicar en main.
     image: martaImg,
     youtubeId: 'AnG9zgIpWhg',
     externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
