@@ -54,8 +54,6 @@ export const PROJECTS: Project[] = [
     platforms: ['instagram', 'tiktok', 'whatsapp', 'blog', 'newsletter'],
     format: ['vertical', 'carrusel'],
     tools: ['CapCut', 'Adobe Premiere', 'WordPress'],
-    // TODO_PERMISO_XARXA: la imagen muestra a personas identificables (web pública de la asociación);
-    // confirmar con Xarxa Aitana que puede reutilizarse en el portfolio antes de publicar en main.
     image: xarxaImg,
     text: {
       es: {
@@ -108,8 +106,6 @@ export const PROJECTS: Project[] = [
     platforms: ['youtube'],
     format: ['horizontal'],
     tools: ['CapCut', 'Adobe Premiere'],
-    // TODO_PERMISO_MARTA_VEGAS: confirmar con Marta Vegas que el fotograma y el vídeo pueden mostrarse
-    // en el portfolio antes de publicar en main.
     image: martaImg,
     youtubeId: 'AnG9zgIpWhg',
     externalUrl: 'https://youtu.be/AnG9zgIpWhg?si=2EGA-bNcKaWZYmaF',
