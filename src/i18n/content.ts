@@ -52,8 +52,7 @@ export const PROJECTS: Project[] = [
     slug: 'xarxa-aitana',
     tags: ['redes-sociales', 'comunidad', 'video', 'contenido-seo'],
     platforms: ['instagram', 'tiktok', 'whatsapp', 'blog', 'newsletter'],
-    // TODO_XARXA_FORMAT: confirmar si además de reels e historias hubo carruseles.
-    format: ['vertical'],
+    format: ['vertical', 'carrusel'],
     tools: ['CapCut', 'Adobe Premiere', 'WordPress'],
     // TODO_PERMISO_XARXA: la imagen muestra a personas identificables (web pública de la asociación);
     // confirmar con Xarxa Aitana que puede reutilizarse en el portfolio antes de publicar en main.
@@ -238,8 +237,10 @@ export const PLATFORM_LABELS: Record<Platform, string> = {
 
 export const TOOLS = ['CapCut', 'Premiere', 'Canva', 'Figma', 'Meta Business Suite', 'WordPress', 'Notion'];
 
-export const CV_HREF = '/assets/CV_Estrella_Dominguez_Sanchez_Content_Manager.pdf';
-// TODO_CV_EN: añadir el CV en inglés y enlazarlo desde contact.cvHref en `en`.
+const CV_HREF: Record<Lang, string> = {
+  es: '/assets/CV_Estrella_Dominguez_Sanchez_Content_Creator_Community_Manager.pdf',
+  en: '/assets/CV_Estrella_Dominguez_Sanchez_Content_Creator_Community_Manager_EN.pdf',
+};
 
 /* ---------- copy de interfaz ---------- */
 
@@ -434,7 +435,7 @@ export const CONTENT: Record<Lang, LangCopy> = {
       },
       cvHeading: 'Currículum',
       cvButton: 'Descargar CV',
-      cvHref: CV_HREF,
+      cvHref: CV_HREF.es,
       footerLeft: '© 2026 ESTRELLA DOMÍNGUEZ SÁNCHEZ',
       footerRight: 'DISEÑADO POR MÍ',
     },
@@ -549,8 +550,8 @@ export const CONTENT: Record<Lang, LangCopy> = {
         href: 'https://www.linkedin.com/in/estrella-dominguez/',
       },
       cvHeading: 'Résumé',
-      cvButton: 'Download CV (Spanish version)',
-      cvHref: CV_HREF,
+      cvButton: 'Download CV',
+      cvHref: CV_HREF.en,
       footerLeft: '© 2026 ESTRELLA DOMÍNGUEZ SÁNCHEZ',
       footerRight: 'DESIGNED BY ME',
     },
