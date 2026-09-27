@@ -7,7 +7,10 @@
   z-index: 100;
   background: transparent;
   border-bottom: 1px solid transparent;
-  transition: background 300ms var(--ease-out), border-color 300ms var(--ease-out), backdrop-filter 300ms var(--ease-out);
+  transition:
+    background 300ms var(--ease-out),
+    border-color 300ms var(--ease-out),
+    backdrop-filter 300ms var(--ease-out);
 }
 
 .site-header.is-scrolled {
@@ -137,7 +140,9 @@
   width: 20px;
   height: 1.5px;
   background: var(--ink);
-  transition: transform 250ms var(--ease-io), opacity 250ms var(--ease-io);
+  transition:
+    transform 250ms var(--ease-io),
+    opacity 250ms var(--ease-io);
 }
 
 .menu-btn__line {
@@ -179,14 +184,18 @@
   padding: 0 32px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 300ms var(--ease-out), visibility 300ms var(--ease-out);
+  transition:
+    opacity 300ms var(--ease-out),
+    visibility 300ms var(--ease-out);
 }
 
 .mobile-menu.is-open {
   opacity: 1;
   visibility: visible;
   /* Become visible (and focusable) immediately on open; the opacity fade still runs. */
-  transition: opacity 300ms var(--ease-out), visibility 0s;
+  transition:
+    opacity 300ms var(--ease-out),
+    visibility 0s;
 }
 
 .mobile-menu nav {
@@ -202,7 +211,9 @@
   color: var(--ink);
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
 }
 
 .mobile-menu.is-open .mobile-menu__link {

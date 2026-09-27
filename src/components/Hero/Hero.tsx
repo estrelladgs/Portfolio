@@ -31,7 +31,10 @@ export function Hero({ heroRef }: HeroProps) {
             <span className="hero__h1-line reveal-line" style={{ animationDelay: '60ms' }}>
               <span className="hero__h1-mask">{hero.h1Line1}</span>
             </span>{' '}
-            <span className="hero__h1-line hero__h1-line--accent fx-accent reveal-line" style={{ animationDelay: '120ms' }}>
+            <span
+              className="hero__h1-line hero__h1-line--accent fx-accent reveal-line"
+              style={{ animationDelay: '120ms' }}
+            >
               <span className="hero__h1-mask">{hero.h1Line2}</span>
             </span>
           </h1>
@@ -76,7 +79,7 @@ export function Hero({ heroRef }: HeroProps) {
       </div>
 
       <a href="#sobre-mi" className="hero__scroll-cue mono-label">
-<span aria-hidden="true">↓</span> {hero.scroll}
+        <span aria-hidden="true">↓</span> {hero.scroll}
       </a>
     </section>
   );

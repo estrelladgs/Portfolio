@@ -65,9 +65,18 @@ export const PROJECTS: Project[] = [
         summary:
           'Web and Social Media Manager (voluntariado, 2021–2024) de una asociación educativa: comunidad, contenido y vídeo en Instagram, TikTok, WordPress y WhatsApp.',
         highlights: [
-          { title: 'Comunidad', text: 'La cuenta pasó de menos de 150 a 535 seguidores, con reels de hasta 6.000 visualizaciones.' },
-          { title: 'Calendario editorial', text: 'Planificación y publicación de posts, historias y reels con un calendario editorial propio.' },
-          { title: 'Vídeo', text: 'Grabación y edición para difundir actividades, contenido educativo y cobertura de eventos.' },
+          {
+            title: 'Comunidad',
+            text: 'La cuenta pasó de menos de 150 a 535 seguidores, con reels de hasta 6.000 visualizaciones.',
+          },
+          {
+            title: 'Calendario editorial',
+            text: 'Planificación y publicación de posts, historias y reels con un calendario editorial propio.',
+          },
+          {
+            title: 'Vídeo',
+            text: 'Grabación y edición para difundir actividades, contenido educativo y cobertura de eventos.',
+          },
           { title: 'Blog y newsletter', text: 'Gestión del blog y la newsletter aplicando nociones de SEO.' },
         ],
       },
@@ -77,9 +86,18 @@ export const PROJECTS: Project[] = [
         summary:
           'Web and Social Media Manager (volunteer, 2021–2024) for an educational association: community, content and video across Instagram, TikTok, WordPress and WhatsApp.',
         highlights: [
-          { title: 'Community', text: 'The account grew from under 150 to 535 followers, with reels reaching up to 6,000 views.' },
-          { title: 'Editorial calendar', text: 'Planning and publishing posts, stories and reels with my own editorial calendar.' },
-          { title: 'Video', text: 'Filming and editing to promote activities, educational content and event coverage.' },
+          {
+            title: 'Community',
+            text: 'The account grew from under 150 to 535 followers, with reels reaching up to 6,000 views.',
+          },
+          {
+            title: 'Editorial calendar',
+            text: 'Planning and publishing posts, stories and reels with my own editorial calendar.',
+          },
+          {
+            title: 'Video',
+            text: 'Filming and editing to promote activities, educational content and event coverage.',
+          },
           { title: 'Blog and newsletter', text: 'Running the blog and newsletter with basic SEO practices.' },
         ],
       },
@@ -123,13 +141,20 @@ export const PROJECTS: Project[] = [
     text: {
       es: {
         title: 'FoxBit',
-        imageAlt: 'Pantalla de configuración de perfil de FoxBit: editar perfil, cambiar contraseña y configuración de cookies.',
+        imageAlt:
+          'Pantalla de configuración de perfil de FoxBit: editar perfil, cambiar contraseña y configuración de cookies.',
         summary:
           'Plataforma ed-tech creada por un equipo de 5 personas. Me encargué del blog y la newsletter, y diseñé prototipos y flujos de usuario.',
         highlights: [
-          { title: 'Blog y newsletter', text: 'Gestión del blog y la newsletter en WordPress aplicando criterios SEO.' },
+          {
+            title: 'Blog y newsletter',
+            text: 'Gestión del blog y la newsletter en WordPress aplicando criterios SEO.',
+          },
           { title: 'Prototipos y flujos', text: 'Prototipos y flujos de usuario diseñados en Figma.' },
-          { title: 'Equipo y método', text: 'Trabajo en un equipo multidisciplinar bajo Scrum, a lo largo de 14 sprints organizados en 4 hitos.' },
+          {
+            title: 'Equipo y método',
+            text: 'Trabajo en un equipo multidisciplinar bajo Scrum, a lo largo de 14 sprints organizados en 4 hitos.',
+          },
         ],
       },
       en: {
@@ -140,7 +165,10 @@ export const PROJECTS: Project[] = [
         highlights: [
           { title: 'Blog and newsletter', text: 'Managed the blog and newsletter in WordPress with SEO criteria.' },
           { title: 'Prototypes and flows', text: 'Prototypes and user flows designed in Figma.' },
-          { title: 'Team and method', text: 'Worked in a multidisciplinary team under Scrum, across 14 sprints organised into 4 milestones.' },
+          {
+            title: 'Team and method',
+            text: 'Worked in a multidisciplinary team under Scrum, across 14 sprints organised into 4 milestones.',
+          },
         ],
       },
     },
@@ -157,11 +185,15 @@ export const PROJECTS: Project[] = [
     text: {
       es: {
         title: 'Lugna',
-        imageAlt: 'Tres pantallas del prototipo de Lugna: inicio con el progreso, catálogo de programas y clases en directo.',
+        imageAlt:
+          'Tres pantallas del prototipo de Lugna: inicio con el progreso, catálogo de programas y clases en directo.',
         summary:
           'App de salud y bienestar, mi Trabajo de Fin de Grado. Un caso de comunicación y lanzamiento de producto: escuchar a los usuarios, diseñar la experiencia y preparar cómo contarla.',
         highlights: [
-          { title: 'Investigación de usuarios', text: 'Tests de usabilidad cronometrados y entrevistas con usuarios reales.' },
+          {
+            title: 'Investigación de usuarios',
+            text: 'Tests de usabilidad cronometrados y entrevistas con usuarios reales.',
+          },
           { title: 'Interfaz y flujos', text: 'Diseño de la interfaz y de los flujos de usuario en Figma.' },
           {
             title: 'Estrategia de contenido y lanzamiento',
@@ -396,7 +428,10 @@ export const CONTENT: Record<Lang, LangCopy> = {
       copyEmail: 'Copiar email',
       copied: 'Email copiado',
       copyFailed: 'No se pudo copiar el email',
-      linkedin: { label: 'LinkedIn: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
+      linkedin: {
+        label: 'LinkedIn: Estrella Domínguez Sánchez',
+        href: 'https://www.linkedin.com/in/estrella-dominguez/',
+      },
       cvHeading: 'Currículum',
       cvButton: 'Descargar CV',
       cvHref: CV_HREF,
@@ -509,7 +544,10 @@ export const CONTENT: Record<Lang, LangCopy> = {
       copyEmail: 'Copy email',
       copied: 'Email copied',
       copyFailed: 'Could not copy the email',
-      linkedin: { label: 'LinkedIn: Estrella Domínguez Sánchez', href: 'https://www.linkedin.com/in/estrella-dominguez/' },
+      linkedin: {
+        label: 'LinkedIn: Estrella Domínguez Sánchez',
+        href: 'https://www.linkedin.com/in/estrella-dominguez/',
+      },
       cvHeading: 'Résumé',
       cvButton: 'Download CV (Spanish version)',
       cvHref: CV_HREF,

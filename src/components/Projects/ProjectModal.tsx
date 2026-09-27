@@ -45,7 +45,9 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
   const trapTab = (e: React.KeyboardEvent<HTMLDialogElement>) => {
     if (e.key !== 'Tab') return;
     const focusables = Array.from(
-      e.currentTarget.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'),
+      e.currentTarget.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])',
+      ),
     );
     if (focusables.length === 0) return;
     const first = focusables[0];
@@ -121,7 +123,9 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
                 <li key={h.title}>
                   <h3 className="project-modal__highlight-title">
                     {h.title}
-                    {h.status === 'en-progreso' && <span className="project-modal__status mono-label">{copy.inProgress}</span>}
+                    {h.status === 'en-progreso' && (
+                      <span className="project-modal__status mono-label">{copy.inProgress}</span>
+                    )}
                   </h3>
                   <p>{h.text}</p>
                 </li>

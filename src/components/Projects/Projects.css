@@ -43,7 +43,10 @@
   overflow: hidden;
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out), box-shadow 300ms var(--ease-out);
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
   will-change: transform;
   display: flex;
   flex-direction: column;

@@ -12,7 +12,11 @@ export function LangToggle({ compact = false }: { compact?: boolean }) {
   const { lang, setLang, copy } = useLang();
 
   return (
-    <div className={`lang-toggle${compact ? ' lang-toggle--compact' : ''}`} role="group" aria-label={copy.a11y.langGroup}>
+    <div
+      className={`lang-toggle${compact ? ' lang-toggle--compact' : ''}`}
+      role="group"
+      aria-label={copy.a11y.langGroup}
+    >
       {OPTIONS.map((option, i) => (
         <span key={option.lang} className="lang-toggle__item">
           {i > 0 && (

@@ -36,7 +36,10 @@ function seoFiles(url: string | undefined): Plugin {
         type: 'asset',
         fileName: PERSON_IMAGE,
         // The portrait is a transparent cut-out: flatten it on the same dark tone the site uses behind it.
-        source: await sharp('src/assets/foto-estrella.png').flatten({ background: '#1a1714' }).jpeg({ quality: 85, mozjpeg: true }).toBuffer(),
+        source: await sharp('src/assets/foto-estrella.png')
+          .flatten({ background: '#1a1714' })
+          .jpeg({ quality: 85, mozjpeg: true })
+          .toBuffer(),
       });
     },
   };

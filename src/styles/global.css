@@ -110,7 +110,9 @@ html {
   padding: 14px 24px;
   font-weight: 600;
   font-size: 15px;
-  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
 }
 
 .pill-btn--primary {

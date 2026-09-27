@@ -142,7 +142,9 @@
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--ink-dim);
-  transition: transform 250ms var(--ease-out), color 250ms var(--ease-out);
+  transition:
+    transform 250ms var(--ease-out),
+    color 250ms var(--ease-out);
 }
 
 .contact__links li:first-child .contact__link-row {

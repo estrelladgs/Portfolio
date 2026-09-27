@@ -50,9 +50,12 @@ export function ProjectCard({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => () => {
-    if (rafId.current !== null) cancelAnimationFrame(rafId.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+    },
+    [],
+  );
 
   // Eases the tilt towards the pointer; frames only run until it settles, so a still pointer costs nothing.
   const tick = () => {
@@ -107,13 +110,7 @@ export function ProjectCard({
     >
       <div className="project-card__media">
         {item.image ? (
-          <Picture
-            picture={item.image}
-            sizes={CARD_IMAGE_SIZES}
-            alt=""
-            loading="lazy"
-            className="project-card__img"
-          />
+          <Picture picture={item.image} sizes={CARD_IMAGE_SIZES} alt="" loading="lazy" className="project-card__img" />
         ) : (
           <div className="project-card__placeholder" aria-hidden="true" />
         )}
@@ -127,7 +124,13 @@ export function ProjectCard({
         <div className="project-card__heading-row">
           <h3 className="project-card__title">
             {/* Stretched button: its ::after covers the whole card, so the card stays clickable. */}
-            <button ref={buttonRef} type="button" className="project-card__button" aria-haspopup="dialog" onClick={onOpen}>
+            <button
+              ref={buttonRef}
+              type="button"
+              className="project-card__button"
+              aria-haspopup="dialog"
+              onClick={onOpen}
+            >
               <span className="project-card__title-text">{item.title}</span>
               <span className="visually-hidden">, {viewCaseLabel}</span>
             </button>

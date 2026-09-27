@@ -21,7 +21,10 @@ html = html.replace(PLACEHOLDER, render());
 
 const font = readdirSync(resolve('dist/assets')).find((f) => PRELOAD_FONT.test(f));
 if (!font) throw new Error('No se encuentra la fuente del titular para precargarla');
-html = html.replace(FONT_PLACEHOLDER, `<link rel="preload" href="/assets/${font}" as="font" type="font/woff2" crossorigin />`);
+html = html.replace(
+  FONT_PLACEHOLDER,
+  `<link rel="preload" href="/assets/${font}" as="font" type="font/woff2" crossorigin />`,
+);
 
 writeFileSync(htmlPath, html);
 rmSync(ssrDir, { recursive: true, force: true });

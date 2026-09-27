@@ -6,7 +6,13 @@ export interface PictureData {
   img: { src: string; w: number; h: number };
 }
 
-const TYPES: Record<string, string> = { avif: 'image/avif', webp: 'image/webp', jpeg: 'image/jpeg', jpg: 'image/jpeg', png: 'image/png' };
+const TYPES: Record<string, string> = {
+  avif: 'image/avif',
+  webp: 'image/webp',
+  jpeg: 'image/jpeg',
+  jpg: 'image/jpeg',
+  png: 'image/png',
+};
 // Modern formats first so the browser picks the lightest one it supports.
 const ORDER = ['avif', 'webp', 'jpeg', 'jpg', 'png'];
 const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';

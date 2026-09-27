@@ -12,7 +12,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: width 220ms var(--ease-out), height 220ms var(--ease-out);
+  transition:
+    width 220ms var(--ease-out),
+    height 220ms var(--ease-out);
 }
 
 .custom-cursor--link {

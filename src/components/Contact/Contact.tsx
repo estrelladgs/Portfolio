@@ -24,9 +24,12 @@ export function Contact() {
     resetTimer.current = window.setTimeout(() => setCopyStatus('idle'), 2500);
   };
 
-  useEffect(() => () => {
-    if (resetTimer.current) window.clearTimeout(resetTimer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (resetTimer.current) window.clearTimeout(resetTimer.current);
+    },
+    [],
+  );
 
   const statusText = copyStatus === 'copied' ? contact.copied : copyStatus === 'failed' ? contact.copyFailed : '';
 

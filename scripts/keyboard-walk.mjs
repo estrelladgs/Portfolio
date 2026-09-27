@@ -28,14 +28,20 @@ function inspect(page) {
     const hasOutline = (s) => s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0;
     const card = el.closest('.project-card');
     const indicator =
-      hasOutline(cs) || cs.boxShadow !== 'none' || (card && hasOutline(getComputedStyle(card))) || el.tagName === 'IFRAME';
+      hasOutline(cs) ||
+      cs.boxShadow !== 'none' ||
+      (card && hasOutline(getComputedStyle(card))) ||
+      el.tagName === 'IFRAME';
     // Covered = the topmost element at the focused element's top edge belongs to the fixed header.
     const header = document.querySelector('.site-header');
     const probeX = Math.min(Math.max(r.left + r.width / 2, 0), innerWidth - 1);
     const probeY = Math.min(Math.max(r.top + 2, 0), innerHeight - 1);
     const topmost = document.elementFromPoint(probeX, probeY);
     const coveredByHeader = !header.contains(el) && !!topmost && header.contains(topmost);
-    const name = (el.getAttribute('aria-label') || el.textContent || el.title || '').replace(/\s+/g, ' ').trim().slice(0, 50);
+    const name = (el.getAttribute('aria-label') || el.textContent || el.title || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 50);
     return {
       name: `${el.tagName.toLowerCase()} "${name}"`,
       inViewport: r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth,
@@ -136,7 +142,9 @@ try {
   }
 
   // Copy email button with Space
-  await page.browserContext().overridePermissions('http://localhost:4176', ['clipboard-read', 'clipboard-write', 'clipboard-sanitized-write']);
+  await page
+    .browserContext()
+    .overridePermissions('http://localhost:4176', ['clipboard-read', 'clipboard-write', 'clipboard-sanitized-write']);
   const copyBtn = await page.evaluateHandle(() => document.querySelector('.contact__email-row button'));
   await copyBtn.focus();
   await press(page, 'Space');
@@ -169,5 +177,7 @@ try {
   await server.close();
 }
 
-console.log(problems.length ? `\n${problems.length} problema(s):\n- ${problems.join('\n- ')}` : '\nSin problemas de foco.');
+console.log(
+  problems.length ? `\n${problems.length} problema(s):\n- ${problems.join('\n- ')}` : '\nSin problemas de foco.',
+);
 process.exitCode = problems.length ? 1 : 0;

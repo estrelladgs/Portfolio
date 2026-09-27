@@ -20,7 +20,8 @@
 .hero__grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 80px 80px;
   transform: translateY(calc(var(--scroll-p, 0) * 50%));
@@ -52,7 +53,11 @@
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
-  transform: translate3d(calc(-50% + var(--par-x, 0) * 8px), calc(var(--par-y, 0) * 8px + var(--scroll-p, 0) * 160px), 0);
+  transform: translate3d(
+    calc(-50% + var(--par-x, 0) * 8px),
+    calc(var(--par-y, 0) * 8px + var(--scroll-p, 0) * 160px),
+    0
+  );
   z-index: 2;
   pointer-events: none;
   user-select: none;

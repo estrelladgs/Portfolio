@@ -1,11 +1,5 @@
 export type EventName =
-  | 'case_view'
-  | 'showreel_play'
-  | 'lightbox_open'
-  | 'cv_download'
-  | 'email_copy'
-  | 'linkedin_click'
-  | 'contact_submit';
+  'case_view' | 'showreel_play' | 'lightbox_open' | 'cv_download' | 'email_copy' | 'linkedin_click' | 'contact_submit';
 
 type Props = Record<string, string>;
 
