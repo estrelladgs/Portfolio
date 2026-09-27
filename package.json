@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "lint": "tsc --noEmit",
+    "lint": "eslint . && tsc --noEmit",
     "check:todos": "node scripts/check-todos.mjs",
     "a11y": "node scripts/a11y-check.mjs",
-    "a11y:keyboard": "node scripts/keyboard-walk.mjs"
+    "a11y:keyboard": "node scripts/keyboard-walk.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
@@ -20,13 +22,21 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "axe-core": "^4.13.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
     "puppeteer-core": "^25.12.0",
     "sharp": "^0.34.5",
     "typescript": "^5.6.3",
+    "typescript-eslint": "^8.70.1",
     "vite": "^5.4.10",
     "vite-imagetools": "^7.1.1"
   }

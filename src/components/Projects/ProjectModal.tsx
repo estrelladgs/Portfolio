@@ -66,6 +66,9 @@ export function ProjectModal({ project, copy, onClose }: ProjectModalProps) {
   ].filter((row) => row.values.length > 0);
 
   return (
+    // A modal <dialog> is an interactive widget, not static content: the keydown handler keeps
+    // Tab inside it, and the backdrop click has a keyboard equivalent (Escape, native to showModal).
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <dialog
       ref={dialogRef}
       className="project-modal"

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from 'react';
 import { CONTENT, type Lang } from '../i18n/content';
 
 interface LangContextValue {
@@ -10,37 +10,65 @@ interface LangContextValue {
 
 const LangContext = createContext<LangContextValue | null>(null);
 
-export function LangProvider({ children }: { children: ReactNode }) {
-  // Always start in Spanish so the client matches the prerendered HTML;
-  // a stored preference is applied right after hydration.
-  const [lang, setLangState] = useState<Lang>('es');
+/*
+ * The chosen language lives in localStorage (an external store). useSyncExternalStore
+ * renders the server snapshot ('es', matching the prerendered HTML) during hydration and
+ * then switches to the stored value without a hydration mismatch or an extra effect.
+ */
+const STORAGE_KEY = 'eds:lang';
+const listeners = new Set<() => void>();
+// In-memory choice, so switching still works when storage is unavailable.
+let chosen: Lang | null = null;
 
-  const setLang = useCallback((next: Lang) => {
-    setLangState(next);
-    document.documentElement.setAttribute('lang', next);
-    try {
-      localStorage.setItem('eds:lang', next);
-    } catch {
-      /* storage unavailable */
+function readLang(): Lang {
+  if (chosen) return chosen;
+  try {
+    return localStorage.getItem(STORAGE_KEY) === 'en' ? 'en' : 'es';
+  } catch {
+    return 'es';
+  }
+}
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  // Keep other tabs in sync.
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === STORAGE_KEY) {
+      chosen = null;
+      onChange();
     }
-  }, []);
+  };
+  window.addEventListener('storage', onStorage);
+  return () => {
+    listeners.delete(onChange);
+    window.removeEventListener('storage', onStorage);
+  };
+}
+
+function writeLang(next: Lang) {
+  chosen = next;
+  try {
+    localStorage.setItem(STORAGE_KEY, next);
+  } catch {
+    /* storage unavailable: the in-memory choice still applies */
+  }
+  listeners.forEach((listener) => listener());
+}
+
+export function LangProvider({ children }: { children: ReactNode }) {
+  const lang = useSyncExternalStore(subscribe, readLang, () => 'es' as const);
 
   useEffect(() => {
-    try {
-      if (localStorage.getItem('eds:lang') === 'en') setLang('en');
-    } catch {
-      /* storage unavailable */
-    }
-  }, [setLang]);
+    document.documentElement.setAttribute('lang', lang);
+  }, [lang]);
+
+  const setLang = useCallback((next: Lang) => writeLang(next), []);
 
   const toggleLang = useCallback(() => {
     setLang(lang === 'es' ? 'en' : 'es');
   }, [lang, setLang]);
 
-  const value = useMemo(
-    () => ({ lang, copy: CONTENT[lang], setLang, toggleLang }),
-    [lang, setLang, toggleLang],
-  );
+  const value = useMemo(() => ({ lang, copy: CONTENT[lang], setLang, toggleLang }), [lang, setLang, toggleLang]);
 
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
 }
